@@ -1,0 +1,172 @@
+// Filter
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 1rem;
+  border-right: 1px solid var(--color-grey);
+
+  & > * {
+    border-bottom: 1px solid var(--color-grey);
+    padding-bottom: 3rem;
+  }
+  // Filter Price Style ------
+  &__price {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &__range {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      & input {
+        width: 10rem;
+        height: 2.5rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        border: none;
+        outline: 1px solid var(--color-grey);
+        font-size: 1.5rem;
+        font-weight: bold;
+
+        &:focus {
+          outline: 2px solid var(--color-primary);
+        }
+      }
+      &--line {
+        width: 25px;
+        height: 2px;
+        background-color: var(--color-primary);
+      }
+    }
+  }
+  //---------------------
+
+  // Rating Stars ---------------------
+
+  &__rating {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .star {
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  // Car Model --------------
+  &__model {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &__select {
+      height: 3rem;
+      padding: 0 1rem;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+  }
+
+  // BODY STYLE ----------------------
+
+  &__bodyStyle {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    &__grid {
+      display: grid;
+      grid-template-columns: (repeat(2, 1fr));
+      gap: 0.5rem;
+
+      &__item {
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1rem;
+        padding: 1rem;
+        & img {
+          height: 5rem;
+        }
+
+        & p {
+          font-size: 1.6rem;
+        }
+      }
+    }
+
+    .active {
+      border: 1px solid green;
+
+      & p {
+        color: var(--color-primary);
+      }
+
+      & svg {
+        fill: var(--color-primary);
+      }
+    }
+  }
+
+  &__transmission {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-direction: column;
+
+    &__items {
+      display: flex;
+      gap: 1rem;
+      font-size: 1.5rem;
+
+      & input {
+        width: 2rem;
+        accent-color: var(--color-primary);
+      }
+    }
+  }
+
+  &__engineType {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &__select {
+      height: 3rem;
+      padding: 0 1rem;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__clearFilter {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & button {
+      background-color: var(--color-primary);
+      padding: 1.5rem 3rem;
+      border-radius: 1rem;
+      outline: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      transition: 0.2s all;
+      &:hover {
+        cursor: pointer;
+        background-color: var(--color-secondary);
+      }
+    }
+  }
+}
