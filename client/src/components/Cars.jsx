@@ -19,6 +19,9 @@ const Cars = () => {
         <Car />
         <Car />
         <Car />
+        <Car />
+        <Car />
+        <Car />
       </div>
     </div>
   );
