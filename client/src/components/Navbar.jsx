@@ -10,7 +10,7 @@ const Navbar = () => {
     <>
       {isOpenNavbar && <ResponsiveNavbar />}
       <nav className="navbar">
-        <div className="navbar__logo">Car Rental</div>
+        <div className="navbar__logo">Rently</div>
         <ul className="navbar__items">
           <Link className="navbar__items__btn addCar">Add Car</Link>
           <Link className="navbar__items__btn login">
