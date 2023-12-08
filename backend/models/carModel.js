@@ -20,7 +20,7 @@ const carSchema = new mongoose.Schema({
       "ford",
       "chevrolet",
       "bmw",
-      "mercedes-benz",
+      "mercedes",
       "audi",
       "tesla",
       "nissan",
