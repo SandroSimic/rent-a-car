@@ -5,7 +5,7 @@
   padding: 1rem;
   position: relative;
   border-bottom: 1px solid var(--color-grey);
-  
+
   &__hamburger {
     font-size: var(--font-size-largest);
     color: var(--color-primary);
@@ -25,6 +25,7 @@
     font-size: 2rem;
     font-weight: bold;
     color: var(--color-primary);
+    text-decoration: none;
   }
   &__items {
     display: flex;
@@ -39,7 +40,6 @@
     }
 
     &__btn {
-      font-size: 1.75rem;
       border: 5px solid var(--color-grey);
       text-decoration: none;
       padding: 1rem 3rem;
@@ -74,20 +74,22 @@
 }
 
 .navbar__responsive {
-  background-color: rgba(172, 255, 47, 0.678);
+  background-color: rgba(172, 255, 47);
   position: absolute;
   top: 0;
   right: 0;
-  height: 100vh;
-  display: flex;
+  height: 100%;
   align-items: center;
   justify-content: center;
   width: 50%;
   animation: responsiveNavAnimation 0.1s ease;
+  z-index: 10;
 
   &__items {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    height: 100%;
     gap: 3rem;
     font-size: 4rem;
     align-items: center;

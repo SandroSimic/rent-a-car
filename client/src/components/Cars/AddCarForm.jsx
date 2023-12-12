@@ -1,0 +1,155 @@
+import { useCreateCar } from "./useCreateCar";
+import { useForm } from "react-hook-form";
+import FormRow from "../../UI/FormRow";
+
+const AddCarForm = () => {
+  const { isCreating, createCarQuery } = useCreateCar();
+
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
+
+  function onSubmit(data) {
+    createCarQuery(
+      { ...data },
+      {
+        onSuccess: () => {
+          reset();
+        },
+      }
+    );
+  }
+
+  function onError(errors) {
+    console.log(errors);
+  }
+
+  return (
+    <div className="addCarScreen">
+      <h2 className="addCarText">Add Car For Rent</h2>
+      <form className="addCarForm" onSubmit={handleSubmit(onSubmit, onError)}>
+        <div className="addCarForm__inputs">
+          <div className="addCarForm__inputs1">
+            <FormRow label="name" error={errors?.name?.message}>
+              <input
+                type="text"
+                placeholder="Enter Car Name"
+                id="name"
+                {...register("name", {
+                  required: "This field is required",
+                })}
+              />
+            </FormRow>
+            <FormRow label="Price" error={errors?.name?.message}>
+              <input
+                type="text"
+                placeholder="Enter Car price (per day)"
+                id="price"
+                {...register("price", {
+                  required: "This field is required",
+                })}
+                disabled={isCreating}
+              />
+            </FormRow>
+            <FormRow label={"Car Model"} errors={errors?.carModel?.message}>
+              <select
+                id="carModel"
+                {...register("carModel", {
+                  required: "This field is required",
+                })}
+              >
+                <option>Toyota</option>
+                <option>Honda</option>
+                <option>Ford</option>
+                <option>Chevrolet</option>
+                <option>BMW</option>
+                <option>Mercedes</option>
+                <option>Audi</option>
+                <option>Tesla</option>
+                <option>Nissan</option>
+                <option>Hyundai</option>
+                <option>Porsche</option>
+                <option>Ferrari</option>
+                <option>Lamborghini</option>
+              </select>
+            </FormRow>
+            <FormRow label={"Body Style"} errors={errors?.bodyStyle?.message}>
+              <select
+                id="bodyStyle"
+                {...register("bodyStyle", {
+                  required: "This field is required",
+                })}
+              >
+                <option>Coupe</option>
+                <option>Jeep</option>
+                <option>Sedan</option>
+                <option>Sport</option>
+              </select>
+            </FormRow>
+            <FormRow
+              label="Transmission"
+              errors={errors?.transmission?.message}
+            >
+              <select
+                id="transmission"
+                {...register("transmission", {
+                  required: "This field is required",
+                })}
+              >
+                <option>Automatic</option>
+                <option>Manual</option>
+              </select>
+            </FormRow>
+          </div>
+          <div className="addCarForm__inputs2">
+            <FormRow label="Engine Type" errors={errors?.engineType?.message}>
+              <select
+                id="engineType"
+                {...register("engineType", {
+                  required: "This field is required",
+                })}
+              >
+                <option>Petrol</option>
+                <option>Diesel</option>
+                <option>Electric</option>
+                <option>LPG</option>
+                <option>Hybrid</option>
+              </select>
+            </FormRow>
+            <div className="addCarForm__input">
+              <label>Image</label>
+              <input type="file" placeholder="Input Car image" />
+            </div>
+            <FormRow label={"Description"} error={errors?.description?.message}>
+              <textarea
+                placeholder="Car description"
+                id="description"
+                {...register("description", {
+                  required: "This field is required",
+                  minLength: {
+                    value: 20,
+                    message: "Name must be longer then 20 character",
+                  },
+                })}
+              />
+            </FormRow>
+            <FormRow label="Year" errors={errors?.year?.message}>
+              <input
+                type="number"
+                placeholder="Add Car Year"
+                id="year"
+                {...register("year", {
+                  required: "This field is required",
+                })}
+              />
+            </FormRow>
+          </div>
+        </div>
+        <button className="addCarForm__btn" disabled={isCreating}>
+          Add Car
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default AddCarForm;

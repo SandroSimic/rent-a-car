@@ -4,6 +4,7 @@ import carsRouter from "./routes/carsRoutes.js";
 import connectDB from "./config/db.js";
 import AppError from "./utils/appError.js";
 import globalErrorHandler from "./controllers/errorController.js";
+import cors from "cors";
 dotenv.config();
 
 const port = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.use("/api/cars", carsRouter);
 

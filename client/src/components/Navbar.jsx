@@ -10,9 +10,9 @@ const Navbar = () => {
     <>
       {isOpenNavbar && <ResponsiveNavbar />}
       <nav className="navbar">
-        <div className="navbar__logo">Rently</div>
+        <Link className="navbar__logo" to={'/'}>Rently</Link>
         <ul className="navbar__items">
-          <Link className="navbar__items__btn addCar">Add Car</Link>
+          <Link className="navbar__items__btn" to={'/add-car'}>Add Car</Link>
           <Link className="navbar__items__btn login">
             <FaUser className="icon" />
             Log In

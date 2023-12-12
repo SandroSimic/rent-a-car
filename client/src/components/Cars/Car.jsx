@@ -1,33 +1,39 @@
-import React from "react";
-import carImg from "../../images/car1.jpg";
-import { FaStar } from "react-icons/fa";
-
-const Car = () => {
+/* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
+import StarRating from "../../UI/StarRating";
+const Car = ({
+  carId,
+  image,
+  name,
+  transmission,
+  numRatings,
+  price,
+  year,
+  ratingsAverage,
+}) => {
   return (
-    <div className="car">
+    <Link className="car" to={`/car/${carId}`}>
       <div>
-        <img src={carImg} alt="cartest" />
+        <img src={image} alt="cartest9" />
       </div>
       <div className="car__text">
-        <h3>Toyota BRZ</h3>
-        <p>London, 2019, Automatic</p>
+        <h3>{name}</h3>
+        <p>
+          London, {year}, {transmission}
+        </p>
         <div className="car__review">
           <div className="car__review__stars">
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
+            <StarRating ratingsAverage={ratingsAverage} />
           </div>
           <span>
-            <strong>45 reviews</strong>
+            <strong>{numRatings} ratings</strong>
           </span>
         </div>
         <div className="car__price">
-          <span>$55</span> / day
+          <span>${price}</span> / day
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

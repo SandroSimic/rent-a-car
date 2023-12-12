@@ -11,7 +11,7 @@ import {
 
 const getAllCars = catchAsync(async (req, res, next) => {
   // Pagination
-  const pageSize = 9;
+  const pageSize = 20;
   const page = Number(req.query.pageNumber) || 1;
   // Search filters
   const search = keywordFilter(req.query.keyword);
@@ -74,6 +74,7 @@ const createCar = catchAsync(async (req, res, next) => {
     transmission,
     engineType,
     description,
+    year
   } = req.body;
   const car = new Car({
     name,
@@ -84,6 +85,7 @@ const createCar = catchAsync(async (req, res, next) => {
     transmission,
     engineType,
     description,
+    year
   });
 
   const newCar = await car.save();

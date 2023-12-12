@@ -1,4 +1,4 @@
-import Cars from "../components/Cars";
+import Cars from "../components/Cars/Cars";
 import Filters from "../components/Filters";
 import Map from "../components/Map";
 
