@@ -15,12 +15,12 @@ const priceFilter = (priceFrom, priceTo) => {
   return Object.keys(priceFilter).length !== 0 ? { price: priceFilter } : {};
 };
 
-const ratingFilter = (rating) => {
-  return rating ? { rating: { $gte: Number(rating) } } : {};
+const ratingsAverageFilter = (ratingAverage) => {
+  return ratingAverage ? { ratingsAverage: { $gte: Number(ratingAverage) } } : {};
 };
 
 const buildFilter = (param, field) => {
   return param ? { [field]: { $regex: param, $options: "i" } } : {};
 };
 
-export { keywordFilter, priceFilter, ratingFilter, buildFilter };
+export { keywordFilter, priceFilter, ratingsAverageFilter, buildFilter };

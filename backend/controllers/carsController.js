@@ -5,20 +5,20 @@ import AppError from "../utils/appError.js";
 import {
   priceFilter,
   keywordFilter,
-  ratingFilter,
+  ratingsAverageFilter,
   buildFilter,
 } from "../utils/carFilters.js";
 
 const getAllCars = catchAsync(async (req, res, next) => {
   // Pagination
-  const pageSize = 20;
+  const pageSize = 9;
   const page = Number(req.query.pageNumber) || 1;
   // Search filters
   const search = keywordFilter(req.query.keyword);
   // Price Filter-------------------------
   const price = priceFilter(req.query.priceFrom, req.query.priceTo);
   // Rating Filter-------------------------
-  const rating = ratingFilter(req.query.rating);
+  const rating = ratingsAverageFilter(req.query.ratingsAverage);
   // Car Model Filter
   const carModel = buildFilter(req.query.model, "carModel");
   // Car Body Style Filter

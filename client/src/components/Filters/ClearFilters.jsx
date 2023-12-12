@@ -1,9 +1,13 @@
 import React from "react";
 
-const ClearFilters = () => {
+const ClearFilters = ({ clearAllFilters }) => {
+  const handleClearFilters = () => {
+    clearAllFilters();
+  };
+
   return (
     <div className="filter__clearFilter">
-      <button>Clear Filters</button>
+      <button onClick={handleClearFilters}>Clear Filters</button>
     </div>
   );
 };

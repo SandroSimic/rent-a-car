@@ -1,16 +1,17 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 
-const StarRating = () => {
-  const [rating, setRating] = useState(null);
-  const [hover, setHover] = useState(5);
+const StarRating = ({ applyFilters, rating, setRating }) => {
+  const [hover, setHover] = useState(0);
 
-
-  const setRatingHandler = (currRating) => {
-    setRating(currRating)
-    console.log(currRating)
-  }
+  const handleRatingChange = (selectedRating) => {
+    const filters = {
+      ratingsAverage: selectedRating,
+    };
+    applyFilters(filters);
+  };
 
   return (
     <div>
@@ -22,7 +23,10 @@ const StarRating = () => {
               type="radio"
               name="rating"
               value={currentRating}
-              onClick={() => setRatingHandler(currentRating)}
+              onClick={() => {
+                setRating(currentRating);
+                handleRatingChange(currentRating);
+              }}
             />
             <FaStar
               className="star"

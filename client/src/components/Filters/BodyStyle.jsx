@@ -4,9 +4,7 @@ import jeepCarImg from "./../../images/jeep.svg";
 import sedanCarImg from "./../../images/sedanCar.svg";
 import sportCar from "./../../images/sportCar.svg";
 
-const BodyStyle = () => {
-  // const [activeItem, setActiveItem] = useState(null);
-
+const BodyStyle = ({ applyFilters, selectedItem, setSelectedItem }) => {
   const bodyStyleItems = [
     { id: "coupe", label: "Coupe", image: coupeCarImg },
     { id: "jeep", label: "Jeep", image: jeepCarImg },
@@ -14,9 +12,15 @@ const BodyStyle = () => {
     { id: "sport", label: "Sport", image: sportCar },
   ];
 
-  // const handleClick = (itemId) => {
-  //   setActiveItem(activeItem === itemId ? null : itemId);
-  // };
+  const handleItemClick = (id) => {
+    if (selectedItem === id) {
+      setSelectedItem(null);
+      applyFilters({ bodyStyle: null });
+    } else {
+      setSelectedItem(id);
+      applyFilters({ bodyStyle: id });
+    }
+  };
 
   return (
     <>
@@ -26,8 +30,10 @@ const BodyStyle = () => {
           {bodyStyleItems.map((item) => (
             <div
               key={item.id}
-              className={`filter__bodyStyle__grid__item ` /* Add Active Class On Click */}
-              // onClick={() => handleClick(item.id)}
+              className={`filter__bodyStyle__grid__item ${
+                selectedItem === item.id ? "active" : ""
+              }`}
+              onClick={() => handleItemClick(item.id)}
             >
               <img src={item.image} alt={item.label} />
               <p>{item.label}</p>

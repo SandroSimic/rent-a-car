@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { FaSearch, FaCar } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 
-const CarSearch = () => {
+const CarSearch = ({ handleSearchChange }) => {
   return (
     <div className="car__search">
       <div className="car__search__input">
         <label htmlFor="searchCar">Search: </label>
-        <input type="text" id="searchCar" />
+        <input type="text" id="searchCar" onChange={handleSearchChange} />
         <FaCar className="car__search__icon" />
       </div>
       <div className="car__search__input">

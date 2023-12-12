@@ -1,8 +1,11 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 
-export const getCars = async () => {
-  const { data } = await axios.get(`${BASE_URL}/cars`);
+export const getCars = async (filters) => {
+  const queryParams = new URLSearchParams(filters).toString();
+
+  const url = `${BASE_URL}/cars${queryParams ? `?${queryParams}` : ""}`;
+  const { data } = await axios.get(url);
   console.log(data.cars);
   return data;
 };
