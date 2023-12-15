@@ -14,8 +14,8 @@ const BodyStyle = ({ applyFilters, selectedItem, setSelectedItem }) => {
 
   const handleItemClick = (id) => {
     if (selectedItem === id) {
-      setSelectedItem(null);
-      applyFilters({ bodyStyle: null });
+      setSelectedItem("");
+      applyFilters({ bodyStyle: "" });
     } else {
       setSelectedItem(id);
       applyFilters({ bodyStyle: id });

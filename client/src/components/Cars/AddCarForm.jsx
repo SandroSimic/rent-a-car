@@ -1,22 +1,34 @@
 import { useCreateCar } from "./useCreateCar";
 import { useForm } from "react-hook-form";
 import FormRow from "../../UI/FormRow";
+import toast from "react-hot-toast";
 
 const AddCarForm = () => {
   const { isCreating, createCarQuery } = useCreateCar();
-
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
 
-  function onSubmit(data) {
-    createCarQuery(
-      { ...data },
-      {
-        onSuccess: () => {
-          reset();
-        },
-      }
-    );
+  async function onSubmit(data) {
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("carModel", data.carModel);
+    formData.append("bodyStyle", data.bodyStyle);
+    formData.append("transmission", data.transmission);
+    formData.append("engineType", data.engineType);
+    formData.append("description", data.description);
+    formData.append("year", data.year);
+
+    try {
+      await createCarQuery(formData);
+      reset();
+      toast.success("New car successfully added");
+    } catch (error) {
+      toast.error(error.message);
+      console.error(error);
+    }
   }
 
   function onError(errors) {
@@ -117,7 +129,15 @@ const AddCarForm = () => {
             </FormRow>
             <div className="addCarForm__input">
               <label>Image</label>
-              <input type="file" placeholder="Input Car image" />
+              <input
+                type="file"
+                id="image"
+                {...register("image", {
+                  required: "This field is required",
+                })}
+                accept="image/*"
+                placeholder="Image of Car"
+              />
             </div>
             <FormRow label={"Description"} error={errors?.description?.message}>
               <textarea

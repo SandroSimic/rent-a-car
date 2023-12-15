@@ -29,6 +29,9 @@ const Model = ({ applyFilters, selectedModel, setSelectedModel }) => {
         <option>Tesla</option>
         <option>Nissan</option>
         <option>Hyundai</option>
+        <option>Porsche</option>
+        <option>Ferrari</option>
+        <option>Lamborghini</option>
       </select>
     </div>
   );

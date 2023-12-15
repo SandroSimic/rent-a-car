@@ -48,7 +48,7 @@ const carSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: "https://placehold.co/600x400/EEE/31343C",
+    required: [true, "Image of car is required"],
   },
   description: {
     type: String,

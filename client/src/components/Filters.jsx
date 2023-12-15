@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import BodyStyle from "./Filters/BodyStyle";
 import ClearFilters from "./Filters/ClearFilters";
 import EngineType from "./Filters/EngineType";
@@ -26,8 +27,8 @@ const Filters = ({ applyFilters }) => {
     setMinPrice("");
     setMaxPrice("");
     setRating(0);
-    setSelectedModel("Any Car");
     setSelectedBodyStyle(null);
+    setSelectedModel("Any Car");
     setSelectedTransmission(null);
     setSelectedEngine("All Types");
     applyFilters();
@@ -39,6 +40,12 @@ const Filters = ({ applyFilters }) => {
 
   return (
     <div className="filter">
+      <ClearFilters clearAllFilters={clearAllFilters} />
+      <div>
+        <button className="filter__applyBtn" onClick={handleApplyFilters}>
+          <p>Apply</p>
+        </button>
+      </div>
       <Price
         applyFilters={handleFilterChange}
         minPrice={minPrice}
@@ -71,12 +78,6 @@ const Filters = ({ applyFilters }) => {
         selectedType={selectedEngine}
         setSelectedType={setSelectedEngine}
       />
-      <div>
-        <button className="filter__applyBtn" onClick={handleApplyFilters}>
-          <p>Apply</p>
-        </button>
-      </div>
-      <ClearFilters clearAllFilters={clearAllFilters} />
     </div>
   );
 };

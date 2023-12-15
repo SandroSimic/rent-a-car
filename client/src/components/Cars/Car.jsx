@@ -13,8 +13,8 @@ const Car = ({
 }) => {
   return (
     <Link className="car" to={`/car/${carId}`}>
-      <div>
-        <img src={image} alt="cartest9" />
+      <div className="car__image">
+        <img src={image} alt="Car" />
       </div>
       <div className="car__text">
         <h3>{name}</h3>

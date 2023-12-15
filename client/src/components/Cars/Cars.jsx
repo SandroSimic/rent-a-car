@@ -3,20 +3,18 @@ import CarSearch from "./CarSearch";
 import Car from "./Car";
 import { useCars } from "./useCars";
 import Spinner from "../../UI/Spinner";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 
 const Cars = ({ filters }) => {
-  const { data, isLoading } = useCars(filters);
+  const { keyword: urlKeyword } = useParams();
+  const [keyword, setKeyword] = useState(urlKeyword || "");
+  const { data, isLoading } = useCars({
+    ...filters,
+    keyword: keyword ? keyword : "",
+  });
+
   const cars = data?.cars || [];
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const filteredCars = cars.filter((car) =>
-    car.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
 
   if (isLoading) {
     return <Spinner />;
@@ -24,15 +22,15 @@ const Cars = ({ filters }) => {
 
   return (
     <div className="cars">
-      <CarSearch handleSearchChange={handleSearchChange} />
+      <CarSearch setKeyword={setKeyword} keyword={keyword}/>
       <div className="cars__results">
         <p>
-          Searching Results: <span>{filteredCars.length} cars</span>{" "}
+          Searching Results: <span>{cars.length} cars</span>{" "}
         </p>
       </div>
 
       <div className="carsList">
-        {filteredCars.map((car) => (
+        {cars.map((car) => (
           <Car
             carId={car._id}
             key={car._id}
