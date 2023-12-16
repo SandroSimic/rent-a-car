@@ -14,6 +14,66 @@
     }
   }
 }
+.pagination {
+  margin-top: 3rem;
+  gap: 3rem;
+  font-size: var(--font-size-largest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .active {
+    background-color: var(--color-primary);
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--color-secondary);
+    padding: 1rem 2rem;
+    border-radius: 3rem;
+    transition: 0.2s all;
+
+    &:hover {
+      background-color: var(--color-primary);
+      color: var(--color-secondary);
+      cursor: pointer;
+    }
+  }
+
+  &__numbers {
+    color: var(--color-primary);
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background-color: var(--color-secondary);
+    padding: 1rem 2rem;
+    border-radius: 3rem;
+    transition: 0.2s all;
+
+    &:hover {
+      background-color: var(--color-primary);
+      color: var(--color-secondary);
+      cursor: pointer;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    background-color: var(--color-primary);
+    padding: 1.5rem;
+    border-radius: 3rem;
+    color: white;
+    transition: 0.2s all;
+
+    &:hover {
+      background-color: var(--color-secondary);
+      cursor: pointer;
+    }
+  }
+}
 
 .car__search {
   display: flex;
@@ -252,4 +312,10 @@
       }
     }
   }
+}
+
+.error-message {
+  font-size: var(--font-size-largest);
+  font-weight: bold;
+  color: var(--color-primary);
 }

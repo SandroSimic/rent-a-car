@@ -1,16 +1,22 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 
-export const getCars = async (filters, keyword) => {
+export const getCars = async (filters, keyword, pageNumber) => {
   const queryParams = new URLSearchParams(filters).toString();
   const keywordParam = new URLSearchParams(keyword).toString();
+  const pageNumberParam = new URLSearchParams(pageNumber);
+  console.log(pageNumberParam);
 
+  const isPageNumber = pageNumberParam ? `${pageNumberParam}` : "";
   const isQuery = queryParams ? `?${queryParams}` : "";
   const isKeyword = keywordParam ? `?${keywordParam}` : "";
 
-  const url = `${BASE_URL}/cars${isQuery}${isKeyword}`;
+  const url = `${BASE_URL}/cars${isQuery}${
+    isQuery ? "&" : "?"
+  }${isPageNumber}${isKeyword}`;
+  console.log(url);
+
   const { data } = await axios.get(url);
-  console.log(data.cars);
   return data;
 };
 

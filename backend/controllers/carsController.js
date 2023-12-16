@@ -12,7 +12,7 @@ import { s3Upload } from "../utils/s3Service.js";
 
 const getAllCars = catchAsync(async (req, res, next) => {
   // Pagination
-  const pageSize = 20;
+  const pageSize = 9;
   const page = Number(req.query.pageNumber) || 1;
   // Search filters
   const search = keywordFilter(req.query.keyword);
@@ -78,12 +78,11 @@ const createCar = catchAsync(async (req, res, next) => {
     year,
   } = req.body;
 
-  
- if (!req.file || !req.file.buffer) {
-  throw new AppError("No file or empty file uploaded", 400);
-}
+  if (!req.file || !req.file.buffer) {
+    throw new AppError("No file or empty file uploaded", 400);
+  }
 
-const data = await s3Upload(req.file);
+  const data = await s3Upload(req.file);
 
   const car = new Car({
     name,
