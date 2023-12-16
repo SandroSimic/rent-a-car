@@ -6,6 +6,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AddCarScreen from "./screens/AddCarScreen";
 import { Toaster } from "react-hot-toast";
 import CarDetailsScreen from "./screens/CarDetailsScreen";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,6 +28,8 @@ function App() {
             <Route path="/add-car" element={<AddCarScreen />} />
             <Route path="/car/:carId" element={<CarDetailsScreen />} />
           </Route>
+          <Route path="/register" element={<RegisterScreen />} />
+          <Route path="/login" element={<LoginScreen />} />
         </Routes>
       </Router>
       <Toaster

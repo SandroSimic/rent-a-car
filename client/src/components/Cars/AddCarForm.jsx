@@ -152,7 +152,7 @@ const AddCarForm = () => {
                 })}
               />
             </FormRow>
-            <FormRow label="Year" errors={errors?.year?.message}>
+            <FormRow label="Year" error={errors?.year?.message}>
               <input
                 type="number"
                 placeholder="Add Car Year"

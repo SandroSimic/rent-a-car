@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import carsRouter from "./routes/carsRoutes.js";
+import usersRoutes from "./routes/usersRoutes.js";
 import connectDB from "./config/db.js";
 import AppError from "./utils/appError.js";
 import globalErrorHandler from "./controllers/errorController.js";
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/api/cars", carsRouter);
+app.use("/api/users", usersRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running");

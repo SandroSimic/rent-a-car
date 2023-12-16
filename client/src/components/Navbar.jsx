@@ -13,7 +13,7 @@ const Navbar = () => {
         <Link className="navbar__logo" to={'/'}>Rently</Link>
         <ul className="navbar__items">
           <Link className="navbar__items__btn" to={'/add-car'}>Add Car</Link>
-          <Link className="navbar__items__btn login">
+          <Link className="navbar__items__btn login" to={'/login'}>
             <FaUser className="icon" />
             Log In
           </Link>
