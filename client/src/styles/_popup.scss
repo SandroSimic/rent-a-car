@@ -1,0 +1,49 @@
+.popup__image {
+  height: 10rem;
+  width: 100%;
+  & img {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem 1rem 0 0;
+  }
+}
+
+.popup__text {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+.popup__price {
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    & p {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--color-primary);
+      font-style: normal;
+    }
+    & span {
+      font-style: italic;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--color-primary);
+    }
+  }
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 0rem;
+  margin: 0rem;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+  margin: 0rem;
+}
+
+.leaflet-popup-tip-container {
+  padding: 0rem;
+}

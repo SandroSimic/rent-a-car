@@ -10,6 +10,7 @@ const Car = ({
   price,
   year,
   ratingsAverage,
+  owner
 }) => {
   return (
     <Link className="car" to={`/car/${carId}`}>
@@ -30,7 +31,10 @@ const Car = ({
           </span>
         </div>
         <div className="car__price">
+        <div>
           <span>${price}</span> / day
+        </div>
+          <p>{owner && owner.username}</p>
         </div>
       </div>
     </Link>

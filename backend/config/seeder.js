@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cars from "../data/cars.js";
 import Car from "../models/carModel.js";
 import connectDB from "../config/db.js";
+import User from '../models/userModel.js'
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ const importData = async () => {
 const destroyData = async () => {
   try {
     await Car.deleteMany();
+    await User.deleteMany();
 
     console.log("Data Destroyed!");
     process.exit();

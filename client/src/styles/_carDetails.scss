@@ -93,22 +93,38 @@
       }
     }
 
-    &__price {
+    &__info {
       display: flex;
       flex-direction: column;
+      gap: 3rem;
 
-      & p {
-        font-size: var(--font-size-huge);
+      &__price {
+        display: flex;
+        flex-direction: column;
+        & p {
+          font-size: var(--font-size-largest);
+        }
+
+        & h3 {
+          font-weight: 100;
+          font-size: var(--font-size-huge);
+        }
+
+        & span {
+          font-weight: bold;
+          color: var(--color-primary);
+        }
       }
 
-      & h3 {
-        font-weight: 100;
-        font-size: var(--font-size-huge);
-      }
+      &__owner {
+        display: flex;
+        gap: 1rem;
+        font-size: 2rem;
+        color: var(--color-secondary);
 
-      & span {
-        font-weight: bold;
-        color: var(--color-primary);
+        & span {
+          color: var(--color-primary);
+        }
       }
     }
   }

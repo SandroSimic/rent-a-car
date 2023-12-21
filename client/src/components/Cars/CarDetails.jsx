@@ -7,6 +7,7 @@ import StarRating from "../../UI/StarRating";
 
 const CarDetails = () => {
   const { car, isLoading } = useCar();
+  console.log(car);
   const navigate = useNavigate();
 
   if (isLoading) {
@@ -44,10 +45,15 @@ const CarDetails = () => {
             <FaHeart />
             <span>To favorites</span>
           </div>
-          <div className="carDetails__subInfo__price">
-            <p>Price: </p>
-            <h3>
-              <span>{car.price}$</span> / Day
+          <div className="carDetails__subInfo__info">
+            <div className="carDetails__subInfo__info__price">
+              <p>Price: </p>
+              <h3>
+                <span>{car.price}$</span> / Day
+              </h3>
+            </div>
+            <h3 className="carDetails__subInfo__info__owner">
+              Owner: <span>{car?.owner?.username}</span>
             </h3>
           </div>
         </div>

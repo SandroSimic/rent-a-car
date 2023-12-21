@@ -54,6 +54,73 @@
         border: 5px solid var(--color-primary);
       }
 
+      &--profile {
+        position: relative;
+
+        .dropdown {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          gap: 3rem;
+          padding: 3rem;
+          top: 6.5rem;
+          right: 0.5rem;
+          z-index: 20;
+          border-radius: 1rem;
+          background-color: var(--color-secondary);
+          font-size: 1.6rem;
+          box-shadow: 5px 10px 10px 2px var(--color-grey);
+
+          &__profile {
+            text-decoration: none;
+            color: white;
+            background-color: var(--color-primary);
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            transition: 0.2s all;
+            &:hover {
+              cursor: pointer;
+              transform: scale(1.1);
+            }
+          }
+
+          &__logout {
+            border: none;
+            text-decoration: none;
+            color: white;
+            background-color: var(--color-primary);
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            transition: 0.2s all;
+
+            &:hover {
+              cursor: pointer;
+              transform: scale(1.1);
+            }
+          }
+        }
+
+        &__imageContainer {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+          transition: 0.2s all;
+          & img {
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          &:hover {
+            outline: 5px solid var(--color-primary);
+            padding: 2px;
+            cursor: pointer;
+          }
+        }
+      }
+
       @media screen and (max-width: $bp-small) {
         display: none;
       }

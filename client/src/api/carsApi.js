@@ -5,7 +5,6 @@ export const getCars = async (filters, keyword, pageNumber) => {
   const queryParams = new URLSearchParams(filters).toString();
   const keywordParam = new URLSearchParams(keyword).toString();
   const pageNumberParam = new URLSearchParams(pageNumber);
-  console.log(pageNumberParam);
 
   const isPageNumber = pageNumberParam ? `${pageNumberParam}` : "";
   const isQuery = queryParams ? `?${queryParams}` : "";
@@ -14,7 +13,13 @@ export const getCars = async (filters, keyword, pageNumber) => {
   const url = `${BASE_URL}/cars${isQuery}${
     isQuery ? "&" : "?"
   }${isPageNumber}${isKeyword}`;
-  console.log(url);
+
+  const { data } = await axios.get(url);
+  return data;
+};
+
+export const getAllCars = async () => {
+  const url = `${BASE_URL}/cars/all-cars`;
 
   const { data } = await axios.get(url);
   return data;
@@ -25,7 +30,9 @@ export const createCar = async (carData) => {
     headers: {
       "Content-Type": "multipart/form-data",
     },
+    withCredentials: true,
   });
+  console.log(data);
   return data;
 };
 

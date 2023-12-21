@@ -58,6 +58,16 @@ const carSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Year of car is required"],
   },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  lat: {
+    type: Number,
+  },
+  lng: {
+    type: Number,
+  },
 });
 
 const Car = mongoose.model("Car", carSchema);

@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import carsRouter from "./routes/carsRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
 import connectDB from "./config/db.js";
@@ -15,7 +16,16 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cookieParser());
+
+
+const allowedOrigins = ['http://localhost:5173']; 
+const corsOptions = {
+  origin: allowedOrigins,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use("/api/cars", carsRouter);
 app.use("/api/users", usersRoutes);

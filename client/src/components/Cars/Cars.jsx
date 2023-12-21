@@ -1,48 +1,24 @@
 /* eslint-disable react/prop-types */
 import CarSearch from "./CarSearch";
 import Car from "./Car";
-import { useCars } from "./useCars";
-import Spinner from "../../UI/Spinner";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import Pagination from "../Pagination";
+import Spinner from "../../UI/Spinner";
 
-const Cars = ({ filters }) => {
-  const { keyword: urlKeyword } = useParams();
-  const [keyword, setKeyword] = useState(urlKeyword || "");
-  const [fetchedData, setFetchedData] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const { isLoading, refetch } = useCars({
-    ...filters,
-    keyword: keyword,
-    pageNumber: currentPage,
-  });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await refetch();
-      if (result && result.data) {
-        setFetchedData(result.data);
-      }
-    };
-
-    fetchData();
-  }, [filters, keyword, currentPage, refetch]);
-
-  useEffect(() => {
-    setCurrentPage(1); // Reset currentPage to 1 whenever keyword or filters change
-  }, [keyword, filters]);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+const Cars = ({
+  allCars,
+  isLoading,
+  fetchedData,
+  currentPage,
+  keyword,
+  handlePageChange,
+  setKeyword,
+}) => {
+  const cars = fetchedData ? fetchedData.cars || [] : [];
+  const totalPages = fetchedData ? fetchedData.pages : 1;
 
   if (isLoading) {
     return <Spinner />;
   }
-
-  const cars = fetchedData ? fetchedData.cars || [] : [];
-  const totalPages = fetchedData ? fetchedData.pages : 1;
 
   return (
     <div className="cars">
@@ -50,7 +26,7 @@ const Cars = ({ filters }) => {
       {cars.length !== 0 && (
         <div className="cars__results">
           <p>
-            Searching Results: <span>{cars.length} cars</span>{" "}
+            Searching Results: <span>{allCars.cars.length} cars</span>{" "}
           </p>
         </div>
       )}
@@ -68,6 +44,7 @@ const Cars = ({ filters }) => {
               price={car.price}
               year={car.year}
               ratingsAverage={car.ratingsAverage}
+              owner={car.owner}
             />
           ))
         ) : (

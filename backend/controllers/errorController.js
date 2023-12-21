@@ -13,6 +13,15 @@ const handleValidationErrorDB = (err) => {
   return new AppError(message, 400);
 };
 
+const handleDuplicateError = (err) => {
+  const quoteRegex = /"(.*?)"/;
+  const match = err.message.match(quoteRegex);
+  const extractedValue = match ? match[1] : "unknown value";
+
+  const message = `Duplicate value ${extractedValue}`;
+  return new AppError(message, 400);
+};
+
 const sendErrorDev = (err, req, res) => {
   if (req.originalUrl.startsWith("/api")) {
     res.status(err.statusCode).json({
@@ -57,6 +66,7 @@ export default (err, req, res, next) => {
     if (error.name === "CastError") error = handleCastErrorDB(error);
     if (error.name === "ValidationError")
       error = handleValidationErrorDB(error);
+    if (error.code === 11000) error = handleDuplicateError(error);
 
     sendErrorProd(error, req, res);
   }

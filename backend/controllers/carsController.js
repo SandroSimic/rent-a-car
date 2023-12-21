@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Car from "../models/carModel.js";
-import catchAsync from "./../utils/catchAsync.js";
+import catchAsync from "../middleware/catchAsync.js";
 import AppError from "../utils/appError.js";
 import {
   priceFilter,
@@ -44,9 +44,20 @@ const getAllCars = catchAsync(async (req, res, next) => {
   const count = await Car.countDocuments(query);
 
   const cars = await Car.find(query)
+    .populate("owner", "username")
     .limit(pageSize)
     .skip(pageSize * (page - 1));
   res.status(200).json({ cars, page, pages: Math.ceil(count / pageSize) });
+});
+
+const getAllCarsNoFilter = catchAsync(async (req, res, next) => {
+  const cars = await Car.find();
+
+  if (cars.length === 0) {
+    return next(new AppError("There are no cars", 404));
+  }
+
+  res.status(200).json({ cars });
 });
 
 const getCar = catchAsync(async (req, res, next) => {
@@ -56,7 +67,7 @@ const getCar = catchAsync(async (req, res, next) => {
     return next(new AppError("Invalid Car Id", 404));
   }
 
-  const car = await Car.findById(carId);
+  const car = await Car.findById(carId).populate("owner", "username");
 
   if (car) {
     res.status(200).json(car);
@@ -76,6 +87,8 @@ const createCar = catchAsync(async (req, res, next) => {
     engineType,
     description,
     year,
+    longitude,
+    latitude,
   } = req.body;
 
   if (!req.file || !req.file.buffer) {
@@ -95,9 +108,13 @@ const createCar = catchAsync(async (req, res, next) => {
     description,
     year,
     image: data.Location,
+    owner: req.user._id,
+    lat: latitude,
+    lng: longitude,
   });
 
   const newCar = await car.save();
+
   res.status(201).json(newCar);
 });
 
@@ -154,4 +171,11 @@ const updateCar = catchAsync(async (req, res) => {
   }
 });
 
-export { getAllCars, getCar, deleteCar, updateCar, createCar };
+export {
+  getAllCars,
+  getCar,
+  deleteCar,
+  updateCar,
+  createCar,
+  getAllCarsNoFilter,
+};

@@ -20,11 +20,11 @@ const AddCarForm = () => {
     formData.append("engineType", data.engineType);
     formData.append("description", data.description);
     formData.append("year", data.year);
-
+    formData.append("latitude", parseFloat(data.latitude) || "");
+    formData.append("longitude", parseFloat(data.longitude) || "");
     try {
-      await createCarQuery(formData);
-      reset();
-      toast.success("New car successfully added");
+      createCarQuery(formData);
+      console.log(formData);
     } catch (error) {
       toast.error(error.message);
       console.error(error);
@@ -49,9 +49,10 @@ const AddCarForm = () => {
                 {...register("name", {
                   required: "This field is required",
                 })}
+                disabled={isCreating}
               />
             </FormRow>
-            <FormRow label="Price" error={errors?.name?.message}>
+            <FormRow label="Price" error={errors?.price?.message}>
               <input
                 type="text"
                 placeholder="Enter Car price (per day)"
@@ -68,6 +69,7 @@ const AddCarForm = () => {
                 {...register("carModel", {
                   required: "This field is required",
                 })}
+                disabled={isCreating}
               >
                 <option>Toyota</option>
                 <option>Honda</option>
@@ -90,6 +92,7 @@ const AddCarForm = () => {
                 {...register("bodyStyle", {
                   required: "This field is required",
                 })}
+                disabled={isCreating}
               >
                 <option>Coupe</option>
                 <option>Jeep</option>
@@ -106,10 +109,36 @@ const AddCarForm = () => {
                 {...register("transmission", {
                   required: "This field is required",
                 })}
+                disabled={isCreating}
               >
                 <option>Automatic</option>
                 <option>Manual</option>
               </select>
+            </FormRow>
+            <FormRow
+              label="Coordinates *"
+              errors={errors?.transmission?.message}
+              tooltipId="my-tooltip"
+              tooltipContent="This field is not required but the car won't show on the map"
+            >
+              <div className="addCarForm__inputs1--coordinates">
+                <input
+                  placeholder="Lat"
+                  id="latitude"
+                  type="number"
+                  {...register("latitude")}
+                  disabled={isCreating}
+                  step="any"
+                />
+                <input
+                  placeholder="Lng"
+                  id="longitude"
+                  type="number"
+                  {...register("longitude")}
+                  disabled={isCreating}
+                  step="any"
+                />
+              </div>
             </FormRow>
           </div>
           <div className="addCarForm__inputs2">
@@ -119,6 +148,7 @@ const AddCarForm = () => {
                 {...register("engineType", {
                   required: "This field is required",
                 })}
+                disabled={isCreating}
               >
                 <option>Petrol</option>
                 <option>Diesel</option>
@@ -137,10 +167,12 @@ const AddCarForm = () => {
                 })}
                 accept="image/*"
                 placeholder="Image of Car"
+                disabled={isCreating}
               />
             </div>
             <FormRow label={"Description"} error={errors?.description?.message}>
               <textarea
+                disabled={isCreating}
                 placeholder="Car description"
                 id="description"
                 {...register("description", {
@@ -160,6 +192,7 @@ const AddCarForm = () => {
                 {...register("year", {
                   required: "This field is required",
                 })}
+                disabled={isCreating}
               />
             </FormRow>
           </div>
