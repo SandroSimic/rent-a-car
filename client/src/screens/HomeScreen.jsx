@@ -3,7 +3,6 @@ import Cars from "../components/Cars/Cars";
 import Filters from "../components/Filters";
 import Map from "../components/Map";
 import { useCars } from "../components/Cars/useCars";
-import { useGetAllCars } from "../components/Cars/useGetAllCars";
 
 const HomeScreen = () => {
   const [appliedFilters, setAppliedFilters] = useState({});
@@ -15,8 +14,6 @@ const HomeScreen = () => {
     keyword: keyword,
     pageNumber: currentPage,
   });
-
-  const { data: allCars } = useGetAllCars();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,17 +38,14 @@ const HomeScreen = () => {
     <div className="home">
       <Filters applyFilters={setAppliedFilters} />
       <Cars
-        allCars={allCars}
         isLoading={isLoading}
         fetchedData={fetchedData}
         currentPage={currentPage}
-        refetch={refetch}
         keyword={keyword}
-        appliedFilters={appliedFilters}
         handlePageChange={handlePageChange}
         setKeyword={setKeyword}
       />
-      <Map allCars={allCars?.cars} />
+      <Map allCars={fetchedData?.cars} />
     </div>
   );
 };

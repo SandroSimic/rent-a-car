@@ -3,7 +3,6 @@ import {
   createCar,
   deleteCar,
   getAllCars,
-  getAllCarsNoFilter,
   getCar,
   updateCar,
 } from "../controllers/carsController.js";
@@ -16,7 +15,10 @@ router
   .route("/")
   .get(getAllCars)
   .post(protect, upload.single("image"), compressImage, createCar);
-router.route("/all-cars").get(getAllCarsNoFilter);
-router.route("/:id").get(getCar).put(updateCar).delete(deleteCar);
+router
+  .route("/:id")
+  .get(getCar)
+  .put(protect, upload.single("image"), compressImage, updateCar)
+  .delete(deleteCar);
 
 export default router;

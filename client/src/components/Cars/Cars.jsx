@@ -3,9 +3,10 @@ import CarSearch from "./CarSearch";
 import Car from "./Car";
 import Pagination from "../Pagination";
 import Spinner from "../../UI/Spinner";
+import { useEffect, useState } from "react";
+import { fetchCityName } from "../../utils/fetchCityName";
 
 const Cars = ({
-  allCars,
   isLoading,
   fetchedData,
   currentPage,
@@ -26,7 +27,7 @@ const Cars = ({
       {cars.length !== 0 && (
         <div className="cars__results">
           <p>
-            Searching Results: <span>{allCars.cars.length} cars</span>{" "}
+            Searching Results: <span>{cars.length} cars</span>{" "}
           </p>
         </div>
       )}
@@ -45,6 +46,8 @@ const Cars = ({
               year={car.year}
               ratingsAverage={car.ratingsAverage}
               owner={car.owner}
+              lat={car.lat}
+              lng={car.lng}
             />
           ))
         ) : (

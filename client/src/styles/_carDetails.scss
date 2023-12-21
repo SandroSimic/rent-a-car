@@ -3,6 +3,49 @@
   flex-direction: column;
   gap: 5rem;
   padding: 5rem 15rem;
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    align-items: center;
+
+    &--delete {
+      display: flex;
+      border: none;
+
+      background-color: #922724;
+      color: #f88379;
+      padding: 0.5rem 1rem;
+      font-size: 2rem;
+
+      border-radius: 1rem;
+
+      &:hover {
+        color: #922724;
+        background-color: #f88379;
+        cursor: pointer;
+      }
+    }
+
+    &--edit {
+      display: flex;
+      font-size: 2rem;
+
+      background-color: #396afc;
+      color: #29ffc6;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      transition: 0.2s all;
+
+      &:hover {
+        background-color: #29ffc6;
+        color: #396afc;
+        cursor: pointer;
+      }
+    }
+  }
+
   &__info {
     display: flex;
     justify-content: space-between;

@@ -50,16 +50,6 @@ const getAllCars = catchAsync(async (req, res, next) => {
   res.status(200).json({ cars, page, pages: Math.ceil(count / pageSize) });
 });
 
-const getAllCarsNoFilter = catchAsync(async (req, res, next) => {
-  const cars = await Car.find();
-
-  if (cars.length === 0) {
-    return next(new AppError("There are no cars", 404));
-  }
-
-  res.status(200).json({ cars });
-});
-
 const getCar = catchAsync(async (req, res, next) => {
   const carId = req.params.id;
 
@@ -132,6 +122,9 @@ const deleteCar = catchAsync(async (req, res, next) => {
 });
 
 const updateCar = catchAsync(async (req, res) => {
+  const carId = req.params.id;
+  const data = await s3Upload(req.file);
+
   try {
     const {
       name,
@@ -142,8 +135,13 @@ const updateCar = catchAsync(async (req, res) => {
       transmission,
       engineType,
       description,
+      lat,
+      lng,
     } = req.body;
-    const carId = req.params.id;
+
+    if (!req.file || !req.file.buffer) {
+      throw new AppError("No file or empty file uploaded", 400);
+    }
 
     if (!mongoose.Types.ObjectId.isValid(carId)) {
       return next(new AppError("Invalid Car Id", 404));
@@ -160,8 +158,12 @@ const updateCar = catchAsync(async (req, res) => {
       car.transmission = transmission || car.transmission;
       car.engineType = engineType || car.engineType;
       car.description = description || car.description;
+      car.image = data.Location || car.image;
+      car.lat = lat || car.lat;
+      car.lng = lng || car.lng;
 
       const updatedCar = await car.save();
+
       res.status(201).json(updatedCar);
     } else {
       return next(new AppError("No car found with that Id", 404));
@@ -171,11 +173,4 @@ const updateCar = catchAsync(async (req, res) => {
   }
 });
 
-export {
-  getAllCars,
-  getCar,
-  deleteCar,
-  updateCar,
-  createCar,
-  getAllCarsNoFilter,
-};
+export { getAllCars, getCar, deleteCar, updateCar, createCar };

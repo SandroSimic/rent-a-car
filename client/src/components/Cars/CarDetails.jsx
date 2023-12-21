@@ -1,14 +1,40 @@
 import { useCar } from "./useCar";
+import { useUser } from "../Users/useUser";
 import Spinner from "../../UI/Spinner";
 import { FaArrowLeft, FaHeart } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { MdDelete, MdEdit } from "react-icons/md";
+
+import { Link, useNavigate } from "react-router-dom";
 import StarRating from "../../UI/StarRating";
+import { useEffect, useState } from "react";
+import { useDeleteCar } from "./useDeleteCar";
+import { fetchCityName } from "../../utils/fetchCityName";
 
 const CarDetails = () => {
   const { car, isLoading } = useCar();
-  console.log(car);
+  const { user } = useUser();
   const navigate = useNavigate();
+  const { deleteCarQuery, isDeleting } = useDeleteCar();
+  const [city, setCity] = useState("");
+
+  function handleDelete() {
+    if (window.confirm("Are you sure to delete this car?")) {
+      deleteCarQuery(car._id);
+    }
+  }
+
+  useEffect(() => {
+    if (car?.lat && car?.lng) {
+      fetchCityName(car?.lat, car?.lng)
+        .then((city) => {
+          setCity(city);
+        })
+        .catch((error) => {
+          console.error("Error fetching city:", error);
+        });
+    }
+  }, [car?.lat, car?.lng]);
 
   if (isLoading) {
     return <Spinner />;
@@ -32,7 +58,7 @@ const CarDetails = () => {
             <span>
               <FaLocationDot />
             </span>{" "}
-            London
+            {city}
           </div>
           <div className="carDetails__info__mainInfo__averageRating">
             <p>Average Rating:</p>
@@ -55,6 +81,25 @@ const CarDetails = () => {
             <h3 className="carDetails__subInfo__info__owner">
               Owner: <span>{car?.owner?.username}</span>
             </h3>
+            {user?._id === car?.owner._id ? (
+              <div className="carDetails__actions">
+                <button
+                  className="carDetails__actions--delete"
+                  onClick={handleDelete}
+                  disabled={isDeleting}
+                >
+                  <MdDelete />
+                </button>
+                <Link
+                  className="carDetails__actions--edit"
+                  to={`/car/edit/${car._id}`}
+                >
+                  <MdEdit />
+                </Link>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

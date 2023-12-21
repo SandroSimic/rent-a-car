@@ -40,3 +40,8 @@ export const getCar = async (carId) => {
   const { data } = await axios.get(`${BASE_URL}/cars/${carId}`);
   return data;
 };
+
+export const deleteCar = async (carId) => {
+  const { data } = await axios.delete(`${BASE_URL}/cars/${carId}`);
+  return data;
+};

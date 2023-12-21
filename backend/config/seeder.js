@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import cars from "../data/cars.js";
+import { cars } from "../data/cars.js";
 import Car from "../models/carModel.js";
 import connectDB from "../config/db.js";
-import User from '../models/userModel.js'
+import User from "../models/userModel.js";
 
 dotenv.config();
 

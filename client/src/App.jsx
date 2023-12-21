@@ -8,6 +8,8 @@ import { Toaster } from "react-hot-toast";
 import CarDetailsScreen from "./screens/CarDetailsScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import EditCarForm from "./components/Cars/EditCarForm";
+import EditCarScreen from "./screens/EditCarScreen";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +29,7 @@ function App() {
             <Route index={true} element={<HomeScreen />} />
             <Route path="/add-car" element={<AddCarScreen />} />
             <Route path="/car/:carId" element={<CarDetailsScreen />} />
+            <Route path="/car/edit/:carId" element={<EditCarScreen />} />
           </Route>
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/login" element={<LoginScreen />} />

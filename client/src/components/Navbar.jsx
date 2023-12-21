@@ -1,18 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaBars } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ResponsiveNavbar from "./ResponsiveNavbar";
 import { useLogout } from "./Users/useLogout";
 
 const Navbar = ({ user }) => {
   const [isOpenNavbar, setIsOpenNavbar] = useState(false);
   const [toggleDropdown, setToggleDropdown] = useState(false);
-
+  const navigate = useNavigate();
   const { logout, isLoading } = useLogout();
 
   function onToggleDropdown() {
     setToggleDropdown((prevToggle) => !prevToggle);
     console.log(toggleDropdown);
+  }
+
+  async function handleLogout() {
+    try {
+      logout();
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout failed: ", error);
+    }
   }
 
   return (
@@ -43,7 +53,7 @@ const Navbar = ({ user }) => {
                   </Link>
                   <button
                     className="dropdown__logout"
-                    onClick={logout}
+                    onClick={handleLogout}
                     disabled={isLoading}
                   >
                     Logout
