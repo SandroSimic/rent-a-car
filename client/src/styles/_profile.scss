@@ -1,0 +1,29 @@
+.profileScreen {
+  height: 100vh;
+  padding: 1rem 2rem;
+
+  .profile {
+    margin-top: 5rem;
+    &__info {
+      display: flex;
+      gap: 3rem;
+
+      & img {
+        width: 25rem;
+        height: 25rem;
+        border-radius: 3rem;
+      }
+
+      &__text {
+        & h2 {
+          font-size: var(--font-size-huge);
+          color: var(--color-primary);
+        }
+        & p {
+          font-size: var(--font-size-large);
+          color: var(--color-grey);
+        }
+      }
+    }
+  }
+}

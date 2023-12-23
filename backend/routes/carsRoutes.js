@@ -4,12 +4,17 @@ import {
   deleteCar,
   getAllCars,
   getCar,
+  getMyCars,
+  getUsersCars,
   updateCar,
 } from "../controllers/carsController.js";
 import { compressImage, upload } from "../utils/uploadImage.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
+
+router.route("/me").get(protect, getMyCars);
+router.route("/usersCars/:userId").get(getUsersCars);
 
 router
   .route("/")
@@ -18,7 +23,7 @@ router
 router
   .route("/:id")
   .get(getCar)
-  .put(protect, upload.single("image"), compressImage, updateCar)
+  .patch(protect, upload.single("image"), compressImage, updateCar)
   .delete(deleteCar);
 
 export default router;

@@ -48,3 +48,15 @@ export const logoutUser = async () => {
     throw new Error("Failed to log out");
   }
 };
+
+export const getMe = async () => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/cars/me`, {
+      withCredentials: true,
+    });
+    return data;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    throw new Error("Failed to load user page");
+  }
+};

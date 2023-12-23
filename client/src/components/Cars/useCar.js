@@ -9,11 +9,12 @@ export function useCar() {
     isLoading,
     data: car,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["car", carId],
     queryFn: () => getCar(carId),
     retry: false,
   });
 
-  return { isLoading, error, car };
+  return { isLoading, error, car, refetch };
 }

@@ -3,7 +3,7 @@ import EditCarForm from "../components/Cars/EditCarForm";
 
 const EditCarScreen = () => {
   return (
-    <div>
+    <div className="addCar">
       <EditCarForm />
     </div>
   );

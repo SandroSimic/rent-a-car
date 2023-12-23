@@ -45,3 +45,17 @@ export const deleteCar = async (carId) => {
   const { data } = await axios.delete(`${BASE_URL}/cars/${carId}`);
   return data;
 };
+
+export const updateCar = async (carId, carData) => {
+  console.log(carId);
+  console.log(carData);
+
+  const { data } = await axios.patch(`${BASE_URL}/cars/${carId}`, carData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    withCredentials: true,
+  });
+
+  return data;
+};

@@ -3,19 +3,24 @@ import FormRow from "../../UI/FormRow";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { useCar } from "./useCar";
+import { useUpdateCar } from "./useUpdateCar";
+import Spinner from "../../UI/Spinner";
 
 const EditCarForm = () => {
   const { carId } = useParams();
-  console.log(carId);
 
+  const { car } = useCar();
   const { isUpdating, updateCarQuery } = useUpdateCar();
-  const { register, handleSubmit, reset, formState } = useForm();
+
+  const { register, handleSubmit, formState } = useForm({
+    defaultValues: car,
+  });
   const { errors } = formState;
 
   async function onSubmit(data) {
     const formData = new FormData();
     formData.append("image", data.image[0]);
-
     formData.append("name", data.name);
     formData.append("price", data.price);
     formData.append("carModel", data.carModel);
@@ -24,11 +29,12 @@ const EditCarForm = () => {
     formData.append("engineType", data.engineType);
     formData.append("description", data.description);
     formData.append("year", data.year);
-    formData.append("latitude", parseFloat(data.latitude) || "");
-    formData.append("longitude", parseFloat(data.longitude) || "");
+    formData.append("lat", parseFloat(data.lat) || "");
+    formData.append("lng", parseFloat(data.lng) || "");
+
     try {
-      createCarQuery(formData);
-      console.log(formData);
+      updateCarQuery({ carId, newCarData: formData });
+      console.log(data)
     } catch (error) {
       toast.error(error.message);
       console.error(error);
@@ -39,172 +45,181 @@ const EditCarForm = () => {
     console.log(errors);
   }
 
+  if (isUpdating) {
+    return <Spinner />;
+  }
+
   return (
     <div className="addCarScreen">
-      <h2 className="addCarText">Add Car For Rent</h2>
-      <form className="addCarForm" onSubmit={handleSubmit(onSubmit, onError)}>
-        <div className="addCarForm__inputs">
-          <div className="addCarForm__inputs1">
-            <FormRow label="name" error={errors?.name?.message}>
-              <input
-                type="text"
-                placeholder="Enter Car Name"
-                id="name"
-                {...register("name", {
-                  required: "This field is required",
-                })}
-                disabled={isCreating}
-              />
-            </FormRow>
-            <FormRow label="Price" error={errors?.price?.message}>
-              <input
-                type="text"
-                placeholder="Enter Car price (per day)"
-                id="price"
-                {...register("price", {
-                  required: "This field is required",
-                })}
-                disabled={isCreating}
-              />
-            </FormRow>
-            <FormRow label={"Car Model"} errors={errors?.carModel?.message}>
-              <select
-                id="carModel"
-                {...register("carModel", {
-                  required: "This field is required",
-                })}
-                disabled={isCreating}
-              >
-                <option>Toyota</option>
-                <option>Honda</option>
-                <option>Ford</option>
-                <option>Chevrolet</option>
-                <option>BMW</option>
-                <option>Mercedes</option>
-                <option>Audi</option>
-                <option>Tesla</option>
-                <option>Nissan</option>
-                <option>Hyundai</option>
-                <option>Porsche</option>
-                <option>Ferrari</option>
-                <option>Lamborghini</option>
-              </select>
-            </FormRow>
-            <FormRow label={"Body Style"} errors={errors?.bodyStyle?.message}>
-              <select
-                id="bodyStyle"
-                {...register("bodyStyle", {
-                  required: "This field is required",
-                })}
-                disabled={isCreating}
-              >
-                <option>Coupe</option>
-                <option>Jeep</option>
-                <option>Sedan</option>
-                <option>Sport</option>
-              </select>
-            </FormRow>
-            <FormRow
-              label="Transmission"
-              errors={errors?.transmission?.message}
-            >
-              <select
-                id="transmission"
-                {...register("transmission", {
-                  required: "This field is required",
-                })}
-                disabled={isCreating}
-              >
-                <option>Automatic</option>
-                <option>Manual</option>
-              </select>
-            </FormRow>
-            <FormRow
-              label="Coordinates *"
-              errors={errors?.transmission?.message}
-              tooltipId="my-tooltip"
-              tooltipContent="This field is not required but the car won't show on the map"
-            >
-              <div className="addCarForm__inputs1--coordinates">
+      <h2 className="addCarText">Edit Car</h2>
+      {car && (
+        <form className="addCarForm" onSubmit={handleSubmit(onSubmit, onError)}>
+          <div className="addCarForm__inputs">
+            <div className="addCarForm__inputs1">
+              <FormRow label="name" error={errors?.name?.message}>
                 <input
-                  placeholder="Lat"
-                  id="latitude"
-                  type="number"
-                  {...register("latitude")}
-                  disabled={isCreating}
-                  step="any"
+                  type="text"
+                  placeholder="Enter Car Name"
+                  id="name"
+                  {...register("name", {
+                    value: car.name,
+                  })}
+                  disabled={""}
                 />
+              </FormRow>
+              <FormRow label="Price" error={errors?.price?.message}>
                 <input
-                  placeholder="Lng"
-                  id="longitude"
-                  type="number"
-                  {...register("longitude")}
-                  disabled={isCreating}
-                  step="any"
+                  type="text"
+                  placeholder="Enter Car price (per day)"
+                  id="price"
+                  {...register("price", {
+                    value: car.price,
+                  })}
+                  disabled={""}
+                />
+              </FormRow>
+              <FormRow label={"Car Model"} errors={errors?.carModel?.message}>
+                <select
+                  id="carModel"
+                  {...register("carModel", {
+                    value: car.carModel,
+                  })}
+                  disabled={""}
+                >
+                  <option>Toyota</option>
+                  <option>Honda</option>
+                  <option>Ford</option>
+                  <option>Chevrolet</option>
+                  <option>BMW</option>
+                  <option>Mercedes</option>
+                  <option>Audi</option>
+                  <option>Tesla</option>
+                  <option>Nissan</option>
+                  <option>Hyundai</option>
+                  <option>Porsche</option>
+                  <option>Ferrari</option>
+                  <option>Lamborghini</option>
+                </select>
+              </FormRow>
+              <FormRow label={"Body Style"} errors={errors?.bodyStyle?.message}>
+                <select
+                  id="bodyStyle"
+                  {...register("bodyStyle", {
+                    value: car.bodyStyle,
+                  })}
+                  disabled={""}
+                >
+                  <option>Coupe</option>
+                  <option>Jeep</option>
+                  <option>Sedan</option>
+                  <option>Sport</option>
+                </select>
+              </FormRow>
+              <FormRow
+                label="Transmission"
+                errors={errors?.transmission?.message}
+              >
+                <select
+                  id="transmission"
+                  {...register("transmission", {
+                    value: car.transmission,
+                  })}
+                  disabled={""}
+                >
+                  <option>Automatic</option>
+                  <option>Manual</option>
+                </select>
+              </FormRow>
+              <FormRow
+                label="Coordinates"
+                errors={errors?.transmission?.message}
+              >
+                <div className="addCarForm__inputs1--coordinates">
+                  <input
+                    placeholder="Lat"
+                    id="lat"
+                    type="number"
+                    {...register("lat", {
+                      value: car.lat,
+                    })}
+                    disabled={""}
+                    step="any"
+                  />
+                  <input
+                    placeholder="Lng"
+                    id="lng"
+                    type="number"
+                    {...register("lng", {
+                      value: car.lng,
+                    })}
+                    disabled={""}
+                    step="any"
+                  />
+                </div>
+              </FormRow>
+            </div>
+            <div className="addCarForm__inputs2">
+              <FormRow label="Engine Type" errors={errors?.engineType?.message}>
+                <select
+                  id="engineType"
+                  {...register("engineType", {
+                    value: car.engineType,
+                  })}
+                  disabled={""}
+                >
+                  <option>Petrol</option>
+                  <option>Diesel</option>
+                  <option>Electric</option>
+                  <option>LPG</option>
+                  <option>Hybrid</option>
+                </select>
+              </FormRow>
+              <div className="addCarForm__input">
+                <label>Image</label>
+                <input
+                  type="file"
+                  id="image"
+                  {...register("image")}
+                  accept="image/*"
+                  placeholder="Image of Car"
+                  disabled={""}
                 />
               </div>
-            </FormRow>
-          </div>
-          <div className="addCarForm__inputs2">
-            <FormRow label="Engine Type" errors={errors?.engineType?.message}>
-              <select
-                id="engineType"
-                {...register("engineType", {
-                  required: "This field is required",
-                })}
-                disabled={isCreating}
+              <FormRow
+                label={"Description"}
+                error={errors?.description?.message}
               >
-                <option>Petrol</option>
-                <option>Diesel</option>
-                <option>Electric</option>
-                <option>LPG</option>
-                <option>Hybrid</option>
-              </select>
-            </FormRow>
-            <div className="addCarForm__input">
-              <label>Image</label>
-              <input
-                type="file"
-                id="image"
-                {...register("image", {
-                  required: "This field is required",
-                })}
-                accept="image/*"
-                placeholder="Image of Car"
-                disabled={isCreating}
-              />
+                <textarea
+                  disabled={""}
+                  placeholder="Car description"
+                  id="description"
+                  {...register("description", {
+                    value: car.description,
+                    minLength: {
+                      value: 20,
+                      message: "Name must be longer then 20 character",
+                    },
+                  })}
+                />
+              </FormRow>
+              <FormRow label="Year" error={errors?.year?.message}>
+                <input
+                  type="number"
+                  placeholder="Add Car Year"
+                  id="year"
+                  {...register("year", {
+                    value: car.year,
+                  })}
+                  disabled={""}
+                />
+              </FormRow>
             </div>
-            <FormRow label={"Description"} error={errors?.description?.message}>
-              <textarea
-                disabled={isCreating}
-                placeholder="Car description"
-                id="description"
-                {...register("description", {
-                  required: "This field is required",
-                  minLength: {
-                    value: 20,
-                    message: "Name must be longer then 20 character",
-                  },
-                })}
-              />
-            </FormRow>
-            <FormRow label="Year" error={errors?.year?.message}>
-              <input
-                type="number"
-                placeholder="Add Car Year"
-                id="year"
-                {...register("year", {
-                  required: "This field is required",
-                })}
-                disabled={isCreating}
-              />
-            </FormRow>
           </div>
-        </div>
-        <button className="addCarForm__btn" disabled={isCreating}>
-          Add Car
-        </button>
-      </form>
+          <button className="addCarForm__btn" disabled={""}>
+            Update Car
+          </button>
+        </form>
+      )}
     </div>
   );
 };

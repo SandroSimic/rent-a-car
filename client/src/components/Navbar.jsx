@@ -1,13 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
 import { FaUser, FaBars } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ResponsiveNavbar from "./ResponsiveNavbar";
 import { useLogout } from "./Users/useLogout";
+import { useUser } from "./Users/useUser";
 
-const Navbar = ({ user }) => {
+const Navbar = () => {
   const [isOpenNavbar, setIsOpenNavbar] = useState(false);
   const [toggleDropdown, setToggleDropdown] = useState(false);
-  const navigate = useNavigate();
+  const { user, refetch } = useUser();
   const { logout, isLoading } = useLogout();
 
   function onToggleDropdown() {
@@ -17,9 +19,8 @@ const Navbar = ({ user }) => {
 
   async function handleLogout() {
     try {
-      logout();
-      navigate("/");
-      window.location.reload();
+      await logout();
+      refetch();
     } catch (error) {
       console.error("Logout failed: ", error);
     }
@@ -27,7 +28,7 @@ const Navbar = ({ user }) => {
 
   return (
     <>
-      {isOpenNavbar && <ResponsiveNavbar />}
+      {isOpenNavbar && <ResponsiveNavbar user={user} />}
       <nav className="navbar">
         <Link className="navbar__logo" to={"/"}>
           Rently
@@ -48,7 +49,7 @@ const Navbar = ({ user }) => {
               </div>
               {toggleDropdown && (
                 <div className="dropdown">
-                  <Link to={"/profile"} className="dropdown__profile">
+                  <Link to={"/user/me"} className="dropdown__profile">
                     Profile
                   </Link>
                   <button

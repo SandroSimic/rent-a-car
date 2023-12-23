@@ -12,7 +12,7 @@ import { useDeleteCar } from "./useDeleteCar";
 import { fetchCityName } from "../../utils/fetchCityName";
 
 const CarDetails = () => {
-  const { car, isLoading } = useCar();
+  const { car, isLoading, refetch } = useCar();
   const { user } = useUser();
   const navigate = useNavigate();
   const { deleteCarQuery, isDeleting } = useDeleteCar();
@@ -35,6 +35,10 @@ const CarDetails = () => {
         });
     }
   }, [car?.lat, car?.lng]);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (isLoading) {
     return <Spinner />;

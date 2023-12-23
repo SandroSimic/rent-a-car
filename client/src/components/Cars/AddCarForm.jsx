@@ -11,7 +11,6 @@ const AddCarForm = () => {
   async function onSubmit(data) {
     const formData = new FormData();
     formData.append("image", data.image[0]);
-
     formData.append("name", data.name);
     formData.append("price", data.price);
     formData.append("carModel", data.carModel);

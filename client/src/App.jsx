@@ -10,6 +10,7 @@ import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import EditCarForm from "./components/Cars/EditCarForm";
 import EditCarScreen from "./screens/EditCarScreen";
+import MyProfileScreen from "./screens/MyProfileScreen";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,6 +31,7 @@ function App() {
             <Route path="/add-car" element={<AddCarScreen />} />
             <Route path="/car/:carId" element={<CarDetailsScreen />} />
             <Route path="/car/edit/:carId" element={<EditCarScreen />} />
+            <Route path="/user/me" element={<MyProfileScreen />} />
           </Route>
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/login" element={<LoginScreen />} />
@@ -38,7 +40,7 @@ function App() {
       <Toaster
         position="top-center"
         gutter={12}
-        containerStyle={{ margin: "8px",  }}
+        containerStyle={{ margin: "8px" }}
         toastOptions={{
           success: {
             duration: 3000,

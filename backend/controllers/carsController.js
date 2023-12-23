@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Car from "../models/carModel.js";
+import User from "../models/userModel.js";
 import catchAsync from "../middleware/catchAsync.js";
 import AppError from "../utils/appError.js";
 import {
@@ -8,7 +9,7 @@ import {
   ratingsAverageFilter,
   buildFilter,
 } from "../utils/carFilters.js";
-import { s3Upload } from "../utils/s3Service.js";
+import { deleteImageFromS3, s3Upload } from "../utils/s3Service.js";
 
 const getAllCars = catchAsync(async (req, res, next) => {
   // Pagination
@@ -113,64 +114,105 @@ const deleteCar = catchAsync(async (req, res, next) => {
 
   const car = await Car.findById(carId);
 
-  if (car) {
-    await Car.deleteOne({ _id: car._id });
-    res.status(200).json({ message: "car deleted" });
-  } else {
+  if (!car) {
     return next(new AppError("No car found with that Id", 404));
   }
-});
 
-const updateCar = catchAsync(async (req, res) => {
-  const carId = req.params.id;
-  const data = await s3Upload(req.file);
-
-  try {
-    const {
-      name,
-      price,
-      rating,
-      carModel,
-      bodyStyle,
-      transmission,
-      engineType,
-      description,
-      lat,
-      lng,
-    } = req.body;
-
-    if (!req.file || !req.file.buffer) {
-      throw new AppError("No file or empty file uploaded", 400);
+  if (car.image) {
+    try {
+      await deleteImageFromS3(car.image);
+    } catch (err) {
+      console.error("Error deleting image from S3:", err);
+      return next(new AppError("Error deleting image from S3", 500));
     }
-
-    if (!mongoose.Types.ObjectId.isValid(carId)) {
-      return next(new AppError("Invalid Car Id", 404));
-    }
-
-    const car = await Car.findById(carId);
-
-    if (car) {
-      car.name = name || car.name;
-      car.price = price || car.price;
-      car.rating = rating || car.rating;
-      car.carModel = carModel || car.carModel;
-      car.bodyStyle = bodyStyle || car.bodyStyle;
-      car.transmission = transmission || car.transmission;
-      car.engineType = engineType || car.engineType;
-      car.description = description || car.description;
-      car.image = data.Location || car.image;
-      car.lat = lat || car.lat;
-      car.lng = lng || car.lng;
-
-      const updatedCar = await car.save();
-
-      res.status(201).json(updatedCar);
-    } else {
-      return next(new AppError("No car found with that Id", 404));
-    }
-  } catch (error) {
-    console.log(`Error: ${error}`);
   }
+
+  await Car.deleteOne({ _id: car._id });
+  res.status(200).json({ message: "Car deleted" });
 });
 
-export { getAllCars, getCar, deleteCar, updateCar, createCar };
+const updateCar = catchAsync(async (req, res, next) => {
+  const {
+    name,
+    price,
+    rating,
+    carModel,
+    bodyStyle,
+    transmission,
+    engineType,
+    description,
+    lat,
+    lng,
+  } = req.body;
+
+  const carId = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(carId)) {
+    return next(new AppError("Invalid Car Id", 404));
+  }
+
+  let updatedCarData = {
+    name,
+    price,
+    rating,
+    carModel,
+    bodyStyle,
+    transmission,
+    engineType,
+    description,
+    lat,
+    lng,
+  };
+
+  if (req.file && req.file.buffer) {
+    const data = await s3Upload(req.file);
+    updatedCarData = {
+      ...updatedCarData,
+      image: data.Location || "",
+    };
+  }
+
+  const updatedCar = await Car.findByIdAndUpdate(carId, updatedCarData, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!updatedCar) {
+    return next(new AppError("Car not found", 404));
+  }
+
+  res.status(200).json({ updatedCar });
+});
+
+const getUsersCars = catchAsync(async (req, res, next) => {
+  const { userId } = req.params;
+  const usersCars = await Car.find({ owner: userId });
+
+  if (!usersCars || usersCars.length === 0) {
+    return res.status(404).json({ message: "No cars found for this user" });
+  }
+
+  res.status(200).json({ usersCars });
+});
+
+const getMyCars = catchAsync(async (req, res, next) => {
+  const myId = req.user._id;
+
+  const myCars = await Car.find({ owner: myId });
+
+  if (!myCars || myCars.length === 0) {
+    return res.status(404).json({ message: "No cars found" });
+  }
+
+  res.status(200).json({ myCars });
+});
+
+export {
+  getAllCars,
+  getCar,
+  deleteCar,
+  updateCar,
+  createCar,
+  getUsersCars,
+  getMyCars,
+};
