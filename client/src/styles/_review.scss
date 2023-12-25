@@ -1,0 +1,24 @@
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  .review {
+    display: flex;
+    gap: 3rem;
+
+    &__image {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      font-size: 1.6rem;
+      gap: 1rem;
+    }
+  }
+}

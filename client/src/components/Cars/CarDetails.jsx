@@ -10,6 +10,7 @@ import StarRating from "../../UI/StarRating";
 import { useEffect, useState } from "react";
 import { useDeleteCar } from "./useDeleteCar";
 import { fetchCityName } from "../../utils/fetchCityName";
+import Review from "../Reviews/Review";
 
 const CarDetails = () => {
   const { car, isLoading, refetch } = useCar();
@@ -83,7 +84,10 @@ const CarDetails = () => {
               </h3>
             </div>
             <h3 className="carDetails__subInfo__info__owner">
-              Owner: <span>{car?.owner?.username}</span>
+              Owner:{" "}
+              <Link to={`/user/${car?.owner?._id}`}>
+                <span>{car?.owner?.username}</span>
+              </Link>
             </h3>
             {user?._id === car?.owner._id ? (
               <div className="carDetails__actions">
@@ -139,6 +143,8 @@ const CarDetails = () => {
           </div>
         </div>
       </div>
+
+      <Review />
     </div>
   );
 };

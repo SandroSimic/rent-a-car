@@ -30,9 +30,7 @@ export const getCurrentUser = async () => {
 
     return data;
   } catch (error) {
-    toast("Not Logged In. Access is restricted", {
-      icon: "⚠️",
-    });
+    console.log(error)
   }
 };
 
@@ -52,6 +50,18 @@ export const logoutUser = async () => {
 export const getMe = async () => {
   try {
     const { data } = await axios.get(`${BASE_URL}/cars/me`, {
+      withCredentials: true,
+    });
+    return data;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    throw new Error("Failed to load user page");
+  }
+};
+
+export const getUser = async (userId) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/users/${userId}`, {
       withCredentials: true,
     });
     return data;

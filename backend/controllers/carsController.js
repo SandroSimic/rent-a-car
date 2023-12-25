@@ -204,7 +204,7 @@ const getMyCars = catchAsync(async (req, res, next) => {
     return res.status(404).json({ message: "No cars found" });
   }
 
-  res.status(200).json({ myCars });
+  res.status(200).json(myCars);
 });
 
 export {

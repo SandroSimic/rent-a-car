@@ -5,22 +5,21 @@ import { useState } from "react";
 import ResponsiveNavbar from "./ResponsiveNavbar";
 import { useLogout } from "./Users/useLogout";
 import { useUser } from "./Users/useUser";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [isOpenNavbar, setIsOpenNavbar] = useState(false);
   const [toggleDropdown, setToggleDropdown] = useState(false);
-  const { user, refetch } = useUser();
+  const { user } = useUser();
   const { logout, isLoading } = useLogout();
 
   function onToggleDropdown() {
     setToggleDropdown((prevToggle) => !prevToggle);
-    console.log(toggleDropdown);
   }
 
   async function handleLogout() {
     try {
       await logout();
-      refetch();
     } catch (error) {
       console.error("Logout failed: ", error);
     }

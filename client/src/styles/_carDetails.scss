@@ -164,9 +164,11 @@
         gap: 1rem;
         font-size: 2rem;
         color: var(--color-secondary);
-
         & span {
           color: var(--color-primary);
+        }
+        & a {
+          text-decoration: none;
         }
       }
     }

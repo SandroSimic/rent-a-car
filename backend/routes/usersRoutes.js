@@ -4,7 +4,10 @@ import {
   logoutUser,
   registerUser,
 } from "../controllers/authController.js";
-import { getCurrentUserData } from "../controllers/userController.js";
+import {
+  getCurrentUserData,
+  getUserById,
+} from "../controllers/userController.js";
 import { protect } from "../middleware/authMiddleware.js";
 import { compressImage, upload } from "../utils/uploadImage.js";
 
@@ -16,9 +19,9 @@ router.post("/logout", logoutUser);
 router
   .route("/register")
   .post(upload.single("userImage"), compressImage, registerUser);
-  
-  router.route("/me").get(protect, getCurrentUserData);
 
-  
+router.route("/me").get(protect, getCurrentUserData);
+
+router.route("/:userId").get(getUserById);
 
 export default router;

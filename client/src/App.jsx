@@ -11,6 +11,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import EditCarForm from "./components/Cars/EditCarForm";
 import EditCarScreen from "./screens/EditCarScreen";
 import MyProfileScreen from "./screens/MyProfileScreen";
+import UsersProfile from "./components/Users/UsersProfile";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,6 +33,7 @@ function App() {
             <Route path="/car/:carId" element={<CarDetailsScreen />} />
             <Route path="/car/edit/:carId" element={<EditCarScreen />} />
             <Route path="/user/me" element={<MyProfileScreen />} />
+            <Route path="/user/:userId" element={<UsersProfile />} />
           </Route>
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/login" element={<LoginScreen />} />

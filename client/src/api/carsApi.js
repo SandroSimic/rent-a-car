@@ -59,3 +59,16 @@ export const updateCar = async (carId, carData) => {
 
   return data;
 };
+
+export const getUsersCars = async (userId) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/cars/usersCars/${userId}`, {
+      withCredentials: true,
+    });
+    console.log(data)
+    return data;
+  } catch (error) {
+    console.error("Error fetching cars:", error);
+    throw new Error("Failed to load users cars");
+  }
+};
