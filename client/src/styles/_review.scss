@@ -6,12 +6,21 @@
   .review {
     display: flex;
     gap: 3rem;
-
+    align-items: center;
+    justify-content: baseline;
+    background-color: var(--color-secondary);
+    border-radius: 1rem;
+    padding: 1.5rem;
     &__image {
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 1rem;
+      & img {
+        width: 100%;
+        height: 7rem;
+        border-radius: 10rem;
+      }
     }
 
     &__text {
@@ -19,6 +28,56 @@
       flex-direction: column;
       font-size: 1.6rem;
       gap: 1rem;
+
+      & span {
+        color: turquoise;
+      }
+    }
+  }
+}
+
+.addReview {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  gap: 2rem;
+
+  &__input {
+    height: 5rem;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 1rem;
+    border: 1px solid var(--color-secondary);
+    outline: none;
+
+    &:focus {
+      border: 2px solid var(--color-primary);
+    }
+  }
+
+  &__select {
+    width: 10rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid var(--color-secondary);
+    outline: none;
+
+    &:focus {
+      border: 2px solid var(--color-primary);
+    }
+  }
+
+  &__button {
+    padding: 1rem 2rem;
+    background-color: var(--color-primary);
+    font-weight: bold;
+    color: white;
+    font-size: 1.6rem;
+    border: none;
+    border-radius: 1rem;
+
+    &:hover{
+      cursor: pointer;
     }
   }
 }

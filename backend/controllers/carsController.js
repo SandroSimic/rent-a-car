@@ -207,6 +207,49 @@ const getMyCars = catchAsync(async (req, res, next) => {
   res.status(200).json(myCars);
 });
 
+const createCarReview = catchAsync(async (req, res, next) => {
+  const { rating, comment } = req.body;
+  const { username, userImage } = req.user;
+
+  if (!rating || !comment) {
+    return next(new AppError("Please enter a review and a rating", 400));
+  }
+
+  const car = await Car.findById(req.params.id);
+
+  if (car) {
+    const alreadyReviewed = car.reviews.find(
+      (review) => review.user.toString() === req.user._id.toString()
+    );
+
+    if (alreadyReviewed) {
+      return next(new AppError("You have already submitted a review", 400));
+    }
+
+    const review = {
+      user: req.user._id,
+      username,
+      image: userImage,
+      rating: Number(rating),
+      comment,
+    };
+
+    car.reviews.push(review);
+    car.numRatings = car.reviews.length;
+
+    const totalRatings = car.reviews.reduce(
+      (total, review) => total + review.rating,
+      0
+    );
+    car.ratingsAverage = totalRatings / car.numRatings;
+    await car.save();
+
+    res.status(201).json({ message: "Review added successfully" });
+  } else {
+    return next(new AppError("Resource not found", 404));
+  }
+});
+
 export {
   getAllCars,
   getCar,
@@ -215,4 +258,5 @@ export {
   createCar,
   getUsersCars,
   getMyCars,
+  createCarReview,
 };

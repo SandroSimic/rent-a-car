@@ -3,8 +3,6 @@ import CarSearch from "./CarSearch";
 import Car from "./Car";
 import Pagination from "../Pagination";
 import Spinner from "../../UI/Spinner";
-import { useEffect, useState } from "react";
-import { fetchCityName } from "../../utils/fetchCityName";
 
 const Cars = ({
   isLoading,

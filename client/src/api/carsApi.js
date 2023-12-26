@@ -47,9 +47,6 @@ export const deleteCar = async (carId) => {
 };
 
 export const updateCar = async (carId, carData) => {
-  console.log(carId);
-  console.log(carData);
-
   const { data } = await axios.patch(`${BASE_URL}/cars/${carId}`, carData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -65,10 +62,26 @@ export const getUsersCars = async (userId) => {
     const { data } = await axios.get(`${BASE_URL}/cars/usersCars/${userId}`, {
       withCredentials: true,
     });
-    console.log(data)
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching cars:", error);
     throw new Error("Failed to load users cars");
   }
+};
+
+export const addReview = async (carId, reviewData) => {
+  const { data } = await axios.post(
+    `${BASE_URL}/cars/${carId}/reviews`,
+    reviewData,
+
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    }
+  );
+  console.log(data);
+  return data;
 };

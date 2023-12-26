@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createCar,
+  createCarReview,
   deleteCar,
   getAllCars,
   getCar,
@@ -14,7 +15,7 @@ import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.route("/me").get(protect, getMyCars);
-router.route("/usersCars/:userId").get(getUsersCars);
+router.route("/usersCars/:userId").get(protect, getUsersCars);
 
 router
   .route("/")
@@ -26,4 +27,5 @@ router
   .patch(protect, upload.single("image"), compressImage, updateCar)
   .delete(deleteCar);
 
+router.route("/:id/reviews").post(protect, createCarReview);
 export default router;

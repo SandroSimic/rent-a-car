@@ -8,10 +8,11 @@ import { Toaster } from "react-hot-toast";
 import CarDetailsScreen from "./screens/CarDetailsScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import EditCarForm from "./components/Cars/EditCarForm";
 import EditCarScreen from "./screens/EditCarScreen";
 import MyProfileScreen from "./screens/MyProfileScreen";
 import UsersProfile from "./components/Users/UsersProfile";
+import { AdminRoute } from "./components/AdminRoutes";
+import { UserRoutes } from "./components/UserRoutes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,7 +30,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index={true} element={<HomeScreen />} />
-            <Route path="/add-car" element={<AddCarScreen />} />
+            <Route
+              path="/add-car"
+              element={<UserRoutes element={AddCarScreen} />}
+            />
             <Route path="/car/:carId" element={<CarDetailsScreen />} />
             <Route path="/car/edit/:carId" element={<EditCarScreen />} />
             <Route path="/user/me" element={<MyProfileScreen />} />

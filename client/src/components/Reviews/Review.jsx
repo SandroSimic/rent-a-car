@@ -1,20 +1,18 @@
+/* eslint-disable react/prop-types */
 import StarRating from "../../UI/StarRating";
 
-const Review = () => {
+const Review = ({ image, username, comment, rating }) => {
   return (
     <div className="reviews">
-      <h1>Reviews</h1>
-
       <div className="review">
         <div className="review__image">
-          <img src="dummyImage" />
+          <img src={image} alt={username} />
         </div>
         <div className="review__text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a
-            diam tellus.
-          </p>
-          <StarRating ratingsAverage={4} />
+          <p>{comment}</p>
+          <span>
+            <StarRating ratingsAverage={rating} />
+          </span>
         </div>
       </div>
     </div>

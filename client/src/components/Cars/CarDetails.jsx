@@ -1,7 +1,7 @@
 import { useCar } from "./useCar";
 import { useUser } from "../Users/useUser";
 import Spinner from "../../UI/Spinner";
-import { FaArrowLeft, FaHeart } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdDelete, MdEdit } from "react-icons/md";
 
@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useDeleteCar } from "./useDeleteCar";
 import { fetchCityName } from "../../utils/fetchCityName";
 import Review from "../Reviews/Review";
+import AddReview from "../Reviews/AddReview";
 
 const CarDetails = () => {
   const { car, isLoading, refetch } = useCar();
@@ -18,7 +19,6 @@ const CarDetails = () => {
   const navigate = useNavigate();
   const { deleteCarQuery, isDeleting } = useDeleteCar();
   const [city, setCity] = useState("");
-
   function handleDelete() {
     if (window.confirm("Are you sure to delete this car?")) {
       deleteCarQuery(car._id);
@@ -68,14 +68,10 @@ const CarDetails = () => {
           <div className="carDetails__info__mainInfo__averageRating">
             <p>Average Rating:</p>
             <StarRating ratingsAverage={car.ratingsAverage} />
-            <span>({car.ratingsAverage})</span>
+            <span>({car.numRatings})</span>
           </div>
         </div>
         <div className="carDetails__subInfo">
-          <div className="carDetails__subInfo__favorite">
-            <FaHeart />
-            <span>To favorites</span>
-          </div>
           <div className="carDetails__subInfo__info">
             <div className="carDetails__subInfo__info__price">
               <p>Price: </p>
@@ -143,8 +139,17 @@ const CarDetails = () => {
           </div>
         </div>
       </div>
-
-      <Review />
+      <h1>Reviews</h1>
+      {user._id === car.owner._id ? "" : <AddReview carId={car._id} />}
+      {car.reviews.map((review) => (
+        <Review
+          key={review._id}
+          image={review.image}
+          username={review.username}
+          comment={review.comment}
+          rating={review.rating}
+        />
+      ))}
     </div>
   );
 };

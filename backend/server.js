@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import carsRouter from "./routes/carsRoutes.js";
-import usersRoutes from "./routes/usersRoutes.js";
+import usersRouter from "./routes/usersRoutes.js";
 import connectDB from "./config/db.js";
 import AppError from "./utils/appError.js";
 import globalErrorHandler from "./controllers/errorController.js";
@@ -18,8 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
-const allowedOrigins = ['http://localhost:5173']; 
+const allowedOrigins = ["http://localhost:5173"];
 const corsOptions = {
   origin: allowedOrigins,
   credentials: true,
@@ -28,7 +27,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use("/api/cars", carsRouter);
-app.use("/api/users", usersRoutes);
+app.use("/api/users", usersRouter);
 
 app.get("/", (req, res) => {
   res.send("API is running");
