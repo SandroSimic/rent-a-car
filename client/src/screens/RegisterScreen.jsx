@@ -5,11 +5,20 @@ import FormRow from "../UI/FormRow";
 import { useRegister } from "../components/Users/useRegister";
 import Spinner from "../UI/Spinner";
 import toast from "react-hot-toast";
+import { useUser } from "../components/Users/useUser";
+import { useNavigate } from "react-router-dom";
 
 const RegisterScreen = () => {
   const { isLoading, registerQuery } = useRegister();
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
+  const navigate = useNavigate();
+
+  const { user } = useUser();
+
+  if (user) {
+    navigate("/");
+  }
 
   async function onSubmit(userData) {
     const formData = new FormData();

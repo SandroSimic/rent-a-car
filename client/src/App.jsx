@@ -32,12 +32,24 @@ function App() {
             <Route index={true} element={<HomeScreen />} />
             <Route
               path="/add-car"
-              element={<UserRoutes element={AddCarScreen} />}
+              element={<UserRoutes element={<AddCarScreen />} />}
             />
-            <Route path="/car/:carId" element={<CarDetailsScreen />} />
-            <Route path="/car/edit/:carId" element={<EditCarScreen />} />
-            <Route path="/user/me" element={<MyProfileScreen />} />
-            <Route path="/user/:userId" element={<UsersProfile />} />
+            <Route
+              path="/car/:carId"
+              element={<UserRoutes element={<CarDetailsScreen />} />}
+            />
+            <Route
+              path="/car/edit/:carId"
+              element={<UserRoutes element={<EditCarScreen />} />}
+            />
+            <Route
+              path="/user/me"
+              element={<UserRoutes element={<MyProfileScreen />} />}
+            />
+            <Route
+              path="/user/:userId"
+              element={<UserRoutes element={<UsersProfile />} />}
+            />
           </Route>
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/login" element={<LoginScreen />} />

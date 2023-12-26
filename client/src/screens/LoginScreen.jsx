@@ -2,13 +2,23 @@ import carBackground from "../images/background.jpg";
 import { Link } from "react-router-dom";
 import { useLogin } from "../components/Users/useLogin";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
 import FormRow from "../UI/FormRow";
 import Spinner from "../UI/Spinner";
+import { useUser } from "../components/Users/useUser";
 
 const LoginScreen = () => {
   const { isLoading, loginUserQuery } = useLogin();
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
+  const { user } = useUser();
+
+  const navigate = useNavigate();
+
+  if (user) {
+    navigate("/");
+  }
 
   async function onSubmit(userData) {
     const formData = new FormData();
@@ -16,6 +26,7 @@ const LoginScreen = () => {
     formData.append("email", userData.email);
 
     if (!formData) return;
+
     try {
       loginUserQuery(formData);
     } catch (error) {

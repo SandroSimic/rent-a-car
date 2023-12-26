@@ -13,8 +13,7 @@ export function useRegister() {
       navigate("/", { replace: true });
     },
     onError: (err) => {
-      toast.error(err.message);
-      console.log(err);
+      toast.error(err.response.data.message);
     },
   });
 
