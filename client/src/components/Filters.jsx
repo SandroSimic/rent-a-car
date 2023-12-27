@@ -18,6 +18,7 @@ const Filters = ({ applyFilters }) => {
   const [selectedTransmission, setSelectedTransmission] = useState(null);
   const [selectedEngine, setSelectedEngine] = useState("All Types");
 
+
   const handleFilterChange = (newFilters) => {
     setFilters({ ...filters, ...newFilters });
   };

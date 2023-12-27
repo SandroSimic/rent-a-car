@@ -24,7 +24,7 @@ const CarDetails = () => {
       deleteCarQuery(car._id);
     }
   }
-
+  console.log(car)
   useEffect(() => {
     if (car?.lat && car?.lng) {
       fetchCityName(car?.lat, car?.lng)

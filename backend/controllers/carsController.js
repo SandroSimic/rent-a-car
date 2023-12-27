@@ -198,6 +198,10 @@ const getUsersCars = catchAsync(async (req, res, next) => {
 const getMyCars = catchAsync(async (req, res, next) => {
   const myId = req.user._id;
 
+  if (!myId) {
+    return next(new AppError("You must be logged in to view your cars", 401));
+  }
+
   const myCars = await Car.find({ owner: myId });
 
   if (!myCars || myCars.length === 0) {

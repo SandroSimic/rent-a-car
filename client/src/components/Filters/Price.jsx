@@ -1,7 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const Price = ({ applyFilters, minPrice, maxPrice, setMinPrice, setMaxPrice }) => {
+const Price = ({
+  applyFilters,
+  minPrice,
+  maxPrice,
+  setMinPrice,
+  setMaxPrice,
+}) => {
   const handlePriceChange = () => {
     const filters = {
       priceFrom: minPrice,
@@ -20,6 +26,7 @@ const Price = ({ applyFilters, minPrice, maxPrice, setMinPrice, setMaxPrice }) =
           value={minPrice}
           onChange={(e) => setMinPrice(e.target.value)}
           onBlur={handlePriceChange}
+          min={0}
         />
         <div className="filter__price__range--line" />
         <input
@@ -28,6 +35,7 @@ const Price = ({ applyFilters, minPrice, maxPrice, setMinPrice, setMaxPrice }) =
           value={maxPrice}
           onChange={(e) => setMaxPrice(e.target.value)}
           onBlur={handlePriceChange}
+          min={0}
         />
       </div>
     </div>
