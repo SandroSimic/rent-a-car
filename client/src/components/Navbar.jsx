@@ -27,7 +27,7 @@ const Navbar = () => {
 
   return (
     <>
-      {isOpenNavbar && <ResponsiveNavbar user={user} />}
+      {isOpenNavbar && <ResponsiveNavbar user={user} logoutHandler={handleLogout}/>}
       <nav className="navbar">
         <Link className="navbar__logo" to={"/"}>
           Rently

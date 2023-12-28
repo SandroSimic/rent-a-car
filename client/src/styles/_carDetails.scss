@@ -4,6 +4,10 @@
   gap: 5rem;
   padding: 5rem 15rem;
 
+  @media screen and (max-width: $bp-medium) {
+    padding: 2.5rem 7.5rem;
+  }
+
   &__actions {
     display: flex;
     justify-content: center;
@@ -49,9 +53,16 @@
   &__info {
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: $bp-small) {
+      flex-direction: column;
+      gap: 3rem;
+    }
+
     &__mainInfo {
       display: flex;
       flex-direction: column;
+      
       &__back {
         display: flex;
         align-self: baseline;
@@ -75,6 +86,11 @@
       &__name {
         font-size: var(--font-size-huge);
         margin-bottom: 1.5rem;
+
+
+        @media screen and (max-width: $bp-small) {
+          font-size: var(--font-size-large);
+        }
       }
 
       &__location {
@@ -82,6 +98,10 @@
         align-items: center;
         gap: 1rem;
         font-size: var(--font-size-medium);
+
+        @media screen and (max-width: $bp-small) {
+          font-size: var(--font-size-small);
+        }
 
         & span {
           background-color: var(--color-secondary);
@@ -117,6 +137,7 @@
   &__subInfo {
     display: flex;
     flex-direction: column;
+
     &__favorite {
       display: flex;
       align-self: baseline;
@@ -177,11 +198,26 @@
   &__extraDetails {
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: $bp-medium) {
+      flex-direction: column;
+      width: 100%;
+    }
     &__image {
       width: 70rem;
       height: 50rem;
       border: 1rem solid var(--color-primary);
       border-radius: 1rem;
+
+      @media screen and (max-width: $bp-medium) {
+        margin-bottom: 3rem;
+        width: 100%;
+      }
+
+      @media screen and (max-width: $bp-small) {
+        width: 100%;
+        height: 20rem;
+      }
 
       & img {
         height: 100%;
@@ -197,6 +233,12 @@
       background-color: var(--color-secondary);
       width: 50%;
       border-radius: 1rem;
+
+      @media screen and (max-width: $bp-medium) {
+        flex-direction: column;
+        width: 100%;
+      }
+
       & h3 {
         font-size: var(--font-size-largest);
         color: var(--color-primary);

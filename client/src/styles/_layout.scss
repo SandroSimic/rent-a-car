@@ -3,6 +3,13 @@
   grid-template-columns: .5fr 2fr 1fr;
   height: 100vh;
   padding: 1.5rem;
+  @media screen and (max-width: $bp-medium) {
+    grid-template-columns: .2fr 1fr;
+  }
+
+  @media screen and (max-width: $bp-small) {
+    grid-template-columns: 1fr;
+  }
 }
 
 

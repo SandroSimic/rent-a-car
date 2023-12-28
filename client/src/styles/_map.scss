@@ -1,3 +1,12 @@
+.map {
+  @media screen and (max-width: $bp-medium) {
+  grid-column: 1/-1;
+  height: 40rem;
+  margin: 5rem 0rem;
+  padding-bottom: 1rem;
+  border: 5px solid var(--color-primary);
+  }
+}
 
 .leaflet-container {
   height: 100%;

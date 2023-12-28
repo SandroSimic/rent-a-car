@@ -9,7 +9,7 @@ export function useGetAllCars() {
     refetch,
   } = useQuery({
     queryKey: ["AllCars"],
-    queryFn: () => getAllCars(),
+    queryFn: getAllCars,
   });
 
   return { cars, error, isLoading, refetch };

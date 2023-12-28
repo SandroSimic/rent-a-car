@@ -4,15 +4,17 @@ import { Link } from "react-router-dom";
 
 const UsersTable = ({ users, handleDelete }) => {
   return (
-    <div>
-      <table className="table">
+    <table className="table">
+      <thead>
         <tr>
           <th>Image</th>
           <th>Name</th>
           <th>Email</th>
           <th>ID</th>
         </tr>
+      </thead>
 
+      <tbody>
         {users?.map((user) => (
           <>
             <tr key={user._id}>
@@ -45,8 +47,8 @@ const UsersTable = ({ users, handleDelete }) => {
             </tr>
           </>
         ))}
-      </table>
-    </div>
+      </tbody>
+    </table>
   );
 };
 

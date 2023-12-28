@@ -141,14 +141,14 @@
 }
 
 .navbar__responsive {
-  background-color: rgba(172, 255, 47);
+  background-color: rgba(172, 255, 47, 0.8);
   position: absolute;
   top: 0;
   right: 0;
   height: 100%;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 100%;
   animation: responsiveNavAnimation 0.1s ease;
   z-index: 10;
 
@@ -172,6 +172,23 @@
       &:hover {
         background-color: var(--color-primary);
         color: white;
+      }
+
+      &--logout {
+        background-color: transparent;
+        text-decoration: none;
+        color: #333333;
+        font-size: 4rem;
+
+        border: 5px solid var(--color-primary);
+        padding: 1rem 5rem;
+        border-radius: 1rem;
+
+        &:hover {
+          background-color: var(--color-primary);
+          color: white;
+          cursor: pointer;
+        }
       }
     }
   }

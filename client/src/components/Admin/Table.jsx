@@ -11,7 +11,7 @@ import Spinner from "../../UI/Spinner";
 const Table = () => {
   const [switchTable, setSwitchTable] = useState(false);
   const { users, refetch } = useGetAllUsers();
-  const { cars } = useGetAllCars();
+  const { cars, refetch: refetchAllCars } = useGetAllCars();
   const { deleteUserQuery, isDeleting } = useDeleteUser();
   const { deleteCarQuery } = useDeleteCar();
 
@@ -27,6 +27,7 @@ const Table = () => {
       try {
         deleteUserQuery(userId);
         refetch();
+        refetchAllCars();
       } catch (error) {
         console.error("Error deleting user:", error);
       }
@@ -41,6 +42,7 @@ const Table = () => {
       try {
         deleteCarQuery(carId);
         refetch();
+        refetchAllCars();
       } catch (error) {
         console.error("Error deleting Car:", error);
       }
@@ -53,7 +55,7 @@ const Table = () => {
 
   return (
     <div>
-      <caption className="switchTable">
+      <div className="switchTable">
         <span
           className={`table__active ${switchTable ? "active" : ""}`}
           onClick={() => setSwitchTable(true)}
@@ -67,7 +69,7 @@ const Table = () => {
         >
           Cars
         </span>
-      </caption>
+      </div>
       {switchTable ? (
         <UsersTable users={users} handleDelete={handleDeleteUser} />
       ) : (

@@ -138,6 +138,10 @@
   @media screen and (max-width: $bp-largest) {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  @media screen and (max-width: $bp-small) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .car {
@@ -148,6 +152,8 @@
   transition: 0.2s all;
   text-decoration: none;
   color: #333333;
+
+
 
   &:hover {
     transform: scale(1.01);
@@ -161,6 +167,8 @@
       width: 100%;
       height: 100%;
     }
+
+
   }
 
   &__text {
@@ -170,11 +178,19 @@
     padding: 1rem;
     & h3 {
       font-size: var(--font-size-largest);
+
+      
+  
+ 
     }
 
     & p {
       font-style: italic;
       font-size: var(--font-size-small);
+
+      @media screen and (max-width: $bp-small) {
+        font-size: var(--font-size-largest);
+      }
     }
   }
 
@@ -215,6 +231,8 @@
   display: flex;
   justify-content: center;
   height: 90vh;
+
+
 }
 
 .addCarScreen {
@@ -255,6 +273,10 @@
   &__inputs {
     display: flex;
     gap: 5rem;
+
+    @media screen and (max-width: $bp-small) {
+      flex-direction: column;
+    }
   }
 
   &__inputs1 {
