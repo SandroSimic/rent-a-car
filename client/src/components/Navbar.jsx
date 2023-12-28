@@ -5,7 +5,6 @@ import { useState } from "react";
 import ResponsiveNavbar from "./ResponsiveNavbar";
 import { useLogout } from "./Users/useLogout";
 import { useUser } from "./Users/useUser";
-import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [isOpenNavbar, setIsOpenNavbar] = useState(false);
