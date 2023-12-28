@@ -5,12 +5,10 @@ import { useState } from "react";
 import ResponsiveNavbar from "./ResponsiveNavbar";
 import { useLogout } from "./Users/useLogout";
 
-const Navbar = ({user}) => {
+const Navbar = ({ user }) => {
   const [isOpenNavbar, setIsOpenNavbar] = useState(false);
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const { logout, isLoading } = useLogout();
-
-
 
   function onToggleDropdown() {
     setToggleDropdown((prevToggle) => !prevToggle);
@@ -26,7 +24,9 @@ const Navbar = ({user}) => {
 
   return (
     <>
-      {isOpenNavbar && <ResponsiveNavbar user={user} logoutHandler={handleLogout}/>}
+      {isOpenNavbar && (
+        <ResponsiveNavbar user={user} logoutHandler={handleLogout} />
+      )}
       <nav className="navbar">
         <Link className="navbar__logo" to={"/"}>
           Rently
@@ -44,7 +44,7 @@ const Navbar = ({user}) => {
           ) : (
             ""
           )}
-          {user ? (
+          {user && user ? (
             <div
               className="navbar__items__btn--profile"
               onClick={onToggleDropdown}
