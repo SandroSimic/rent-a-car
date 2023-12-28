@@ -8,15 +8,13 @@ import AppError from "./utils/appError.js";
 import globalErrorHandler from "./controllers/errorController.js";
 import cors from "cors";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
 import path from "path";
 
 dotenv.config();
 
 connectDB();
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
 app.use(cookieParser());
 
 app.use(
@@ -31,11 +29,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/cars", carsRouter);
 app.use("/api/users", usersRouter);
 
+
+const __dirname = path.resolve();
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/dist")));
+  app.use(express.static(path.join(__dirname, "/client/dist")));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
   });
 } else {
   app.get("/", (req, res) => {
