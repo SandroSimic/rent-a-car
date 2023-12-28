@@ -7,12 +7,36 @@
   margin-inline: auto;
 }
 
+
+.switchTable{ 
+  display: flex;
+  gap: 1rem;  
+  align-items: center;
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin: 3rem 0rem;
+
+
+  &:hover{
+    cursor: pointer;
+  }
+
+  .active {
+    text-decoration: underline;
+  }
+
+}
+
 .table {
   background-color: var(--color-primary);
   padding: 1rem;
   color: #323232;
   border-collapse: collapse;
   width: 100%;
+
+ 
+
+
   img {
     width: 10rem;
     height: 10rem;
@@ -23,6 +47,12 @@
     font-size: var(--font-size-huge);
     text-align: left;
     padding: 1rem;
+  
+    & span {
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
   & th,

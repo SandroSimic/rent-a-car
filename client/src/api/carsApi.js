@@ -19,9 +19,9 @@ export const getCars = async (filters, keyword, pageNumber) => {
 };
 
 export const getAllCars = async () => {
-  const url = `${BASE_URL}/cars/all-cars`;
+  const url = `${BASE_URL}/cars/allCars`;
 
-  const { data } = await axios.get(url);
+  const { data } = await axios.get(url, { withCredentials: true });
   return data;
 };
 

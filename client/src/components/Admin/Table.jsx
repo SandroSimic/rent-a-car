@@ -1,18 +1,25 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllUsers } from "../Users/useGetAllUsers";
 import { useDeleteUser } from "../Users/useDeleteUser";
-import { MdDelete, MdEdit } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { useGetAllCars } from "../Cars/useGetAllCars";
+import { useDeleteCar } from "../Cars/useDeleteCar";
+
+import UsersTable from "./UsersTable";
+import CarsTable from "./CarsTable";
+import Spinner from "../../UI/Spinner";
 
 const Table = () => {
+  const [switchTable, setSwitchTable] = useState(false);
   const { users, refetch } = useGetAllUsers();
+  const { cars } = useGetAllCars();
   const { deleteUserQuery, isDeleting } = useDeleteUser();
+  const { deleteCarQuery } = useDeleteCar();
 
   useEffect(() => {
     refetch();
   }, [refetch]);
 
-  const handleDelete = async (userId) => {
+  const handleDeleteUser = async (userId) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this user?"
     );
@@ -26,50 +33,47 @@ const Table = () => {
     }
   };
 
+  const handleDeleteCar = async (carId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this Car?"
+    );
+    if (confirmed) {
+      try {
+        deleteCarQuery(carId);
+        refetch();
+      } catch (error) {
+        console.error("Error deleting Car:", error);
+      }
+    }
+  };
+
+  if (isDeleting) {
+    return <Spinner />;
+  }
+
   return (
-    <table className="table">
-      <caption>Users</caption>
-
-      <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>ID</th>
-      </tr>
-
-      {users?.map((user) => (
-        <>
-          <tr key={user._id}>
-            <td data-cell="image">
-              <Link to={`/user/${user._id}`}>
-                <img src={user.userImage} alt={user.username} />
-              </Link>
-            </td>
-            <td data-cell="username">
-              {" "}
-              <Link to={`/user/${user._id}`}>{user.username}</Link>
-            </td>
-            <td data-cell="email">{user.email}</td>
-            <td data-cell="id">{user._id}</td>
-            <td data-cell="">
-              <button
-                className="carDetails__actions--delete"
-                onClick={() => handleDelete(user._id)}
-              >
-                <MdDelete />
-              </button>
-            </td>
-            <td data-cell="">
-              <Link to={`/users/${user._id}/edit`}>
-                <button className="carDetails__actions--edit">
-                  <MdEdit />
-                </button>
-              </Link>
-            </td>
-          </tr>
-        </>
-      ))}
-    </table>
+    <div>
+      <caption className="switchTable">
+        <span
+          className={`table__active ${switchTable ? "active" : ""}`}
+          onClick={() => setSwitchTable(true)}
+        >
+          Users
+        </span>{" "}
+        /{" "}
+        <span
+          className={`table__active ${!switchTable ? "active" : ""}`}
+          onClick={() => setSwitchTable(false)}
+        >
+          Cars
+        </span>
+      </caption>
+      {switchTable ? (
+        <UsersTable users={users} handleDelete={handleDeleteUser} />
+      ) : (
+        <CarsTable cars={cars} handleDelete={handleDeleteCar} />
+      )}
+    </div>
   );
 };
 

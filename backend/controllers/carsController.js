@@ -9,7 +9,11 @@ import {
   ratingsAverageFilter,
   buildFilter,
 } from "../utils/carFilters.js";
-import { deleteImageFromS3, s3Upload, updateImageInS3 } from "../utils/s3Service.js";
+import {
+  deleteImageFromS3,
+  s3Upload,
+  updateImageInS3,
+} from "../utils/s3Service.js";
 
 const getAllCars = catchAsync(async (req, res, next) => {
   // Pagination
@@ -261,6 +265,16 @@ const createCarReview = catchAsync(async (req, res, next) => {
   }
 });
 
+const getCars = catchAsync(async (req, res, next) => {
+  const cars = await Car.find().populate("owner", "username");
+
+  if (!cars || cars.length === 0) {
+    return next(new AppError("No cars available", 404));
+  }
+
+  res.status(200).json({ cars });
+});
+
 export {
   getAllCars,
   getCar,
@@ -270,4 +284,5 @@ export {
   getUsersCars,
   getMyCars,
   createCarReview,
+  getCars,
 };

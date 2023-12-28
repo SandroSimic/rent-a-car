@@ -11,7 +11,7 @@ export function useDeleteCar() {
     mutationFn: deleteCar,
     onSuccess: () => {
       toast.success("Car successfully deleted");
-      queryClient.invalidateQueries({ queryKey: ["cars"] });
+      queryClient.invalidateQueries({ queryKey: ["AllCars"] });
       navigate("/");
     },
     onError: (err) => {

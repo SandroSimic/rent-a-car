@@ -5,12 +5,13 @@ import {
   deleteCar,
   getAllCars,
   getCar,
+  getCars,
   getMyCars,
   getUsersCars,
   updateCar,
 } from "../controllers/carsController.js";
 import { compressImage, upload } from "../utils/uploadImage.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { admin, protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -21,7 +22,9 @@ router
   .route("/")
   .get(getAllCars)
   .post(protect, upload.single("image"), compressImage, createCar);
-  
+
+router.route("/allCars").get(protect, admin, getCars);
+
 router
   .route("/:id")
   .get(getCar)
