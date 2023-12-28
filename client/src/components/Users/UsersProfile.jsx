@@ -9,11 +9,16 @@ import { fetchCountryName } from "../../utils/fetchCityName";
 
 const UsersProfile = () => {
   const { userId } = useParams();
-  const { user, refetch, isLoading: isLoadingUser } = useGetUser(userId);
+  const {
+    user,
+    refetch: refetchUser,
+    isLoading: isLoadingUser,
+  } = useGetUser(userId);
   const {
     cars: usersCars,
     isLoading,
     refetch: refetchCars,
+    error,
   } = useUsersCars(userId);
   const [countries, setCountries] = useState({});
   const cars = usersCars?.usersCars;
@@ -27,15 +32,15 @@ const UsersProfile = () => {
       }
       setCountries(countryData);
       refetchCars();
-      refetch();
+      refetchUser();
     };
 
     if (cars && cars.length > 0) {
       fetchData();
-      refetch();
+      refetchUser();
       refetchCars();
     }
-  }, [cars, refetch, refetchCars]);
+  }, [cars, refetchUser, refetchCars]);
 
   if (isLoading || isLoadingUser) {
     return <Spinner />;
@@ -52,16 +57,22 @@ const UsersProfile = () => {
           </div>
         </div>
         <div className="profile__myCars">
-          {cars?.map((myCar) => (
-            <MyCarsCard
-              key={myCar._id}
-              id={myCar._id}
-              name={myCar.name}
-              price={myCar.price}
-              image={myCar.image}
-              country={countries[`${myCar.lat},${myCar.lng}`]}
-            />
-          ))}
+          {!error && cars && cars.length > 0 ? (
+            cars.map((myCar) => (
+              <MyCarsCard
+                key={myCar._id}
+                id={myCar._id}
+                name={myCar.name}
+                price={myCar.price}
+                image={myCar.image}
+                country={countries[`${myCar.lat},${myCar.lng}`]}
+              />
+            ))
+          ) : (
+            <p className="profile__myCars--error">
+              {!error ? "No cars found." : error.response.data.message}
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -10,8 +10,11 @@ export function useUsersCars() {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["cars"],
+    queryKey: ["UsersCars"],
     queryFn: () => getUsersCars(userId),
+    onError: (error) => {
+      console.error("Error fetching data:", error);
+    },
   });
 
   return { isLoading, error, cars, refetch };

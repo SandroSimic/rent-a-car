@@ -32,3 +32,14 @@ export const deleteImageFromS3 = async (imageUrl) => {
     });
   });
 };
+
+export const updateImageInS3 = async (file, existingImageUrl) => {
+  const s3 = new S3();
+
+  if (existingImageUrl) {
+    await deleteImageFromS3(existingImageUrl);
+  }
+
+  const data = await s3Upload(file);
+  return data.Location || "";
+};

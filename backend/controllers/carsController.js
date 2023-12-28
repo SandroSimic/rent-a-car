@@ -9,7 +9,7 @@ import {
   ratingsAverageFilter,
   buildFilter,
 } from "../utils/carFilters.js";
-import { deleteImageFromS3, s3Upload } from "../utils/s3Service.js";
+import { deleteImageFromS3, s3Upload, updateImageInS3 } from "../utils/s3Service.js";
 
 const getAllCars = catchAsync(async (req, res, next) => {
   // Pagination
@@ -151,6 +151,12 @@ const updateCar = catchAsync(async (req, res, next) => {
     return next(new AppError("Invalid Car Id", 404));
   }
 
+  const existingCar = await Car.findById(carId);
+
+  if (!existingCar) {
+    return next(new AppError("Car not found", 404));
+  }
+
   let updatedCarData = {
     name,
     price,
@@ -165,10 +171,11 @@ const updateCar = catchAsync(async (req, res, next) => {
   };
 
   if (req.file && req.file.buffer) {
-    const data = await s3Upload(req.file);
+    const data = await updateImageInS3(req.file, existingCar.image);
+
     updatedCarData = {
       ...updatedCarData,
-      image: data.Location || "",
+      image: data || "",
     };
   }
 
@@ -189,7 +196,7 @@ const getUsersCars = catchAsync(async (req, res, next) => {
   const usersCars = await Car.find({ owner: userId });
 
   if (!usersCars || usersCars.length === 0) {
-    return res.status(404).json({ message: "No cars found for this user" });
+    return next(new AppError("No cars found for this user.", 404));
   }
 
   res.status(200).json({ usersCars });

@@ -1,0 +1,49 @@
+.adminScreen {
+  height: 100vh;
+  gap: 3rem;
+  padding: 1rem;
+
+  width: min(90rem, 100% - 3rem);
+  margin-inline: auto;
+}
+
+.table {
+  background-color: var(--color-primary);
+  padding: 1rem;
+  color: #323232;
+  border-collapse: collapse;
+  width: 100%;
+  img {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  & caption {
+    color: var(--color-primary);
+    font-size: var(--font-size-huge);
+    text-align: left;
+    padding: 1rem;
+  }
+
+  & th,
+  & td {
+    text-align: left;
+    padding: 1rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+
+
+    & a {
+      text-decoration: none;
+      color: #323232;
+    }
+  }
+
+  & th {
+    background-color: var(--color-primary);
+  }
+
+  & tr:nth-of-type(2n) {
+    background-color: var(--color-secondary);
+  }
+}

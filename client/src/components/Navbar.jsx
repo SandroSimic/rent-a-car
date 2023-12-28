@@ -38,6 +38,13 @@ const Navbar = () => {
               Add Car
             </Link>
           )}
+          {user && user.role === "admin" ? (
+            <Link className="navbar__items__btn" to={"/admin"}>
+              Admin
+            </Link>
+          ) : (
+            ""
+          )}
           {user ? (
             <div
               className="navbar__items__btn--profile"

@@ -6,7 +6,7 @@ import { useUser } from "./Users/useUser";
 export function AdminRoute({ element }) {
   const { user } = useUser();
 
-  const isAdmin = user && user.isAdmin;
+  const isAdmin = user && user.role === "admin";
 
   const navigate = useNavigate();
   if (!isAdmin) {

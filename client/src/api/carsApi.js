@@ -32,7 +32,6 @@ export const createCar = async (carData) => {
     },
     withCredentials: true,
   });
-  console.log(data);
   return data;
 };
 
@@ -58,16 +57,10 @@ export const updateCar = async (carId, carData) => {
 };
 
 export const getUsersCars = async (userId) => {
-  try {
-    const { data } = await axios.get(`${BASE_URL}/cars/usersCars/${userId}`, {
-      withCredentials: true,
-    });
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error("Error fetching cars:", error);
-    throw new Error("Failed to load users cars");
-  }
+  const { data } = await axios.get(`${BASE_URL}/cars/usersCars/${userId}`, {
+    withCredentials: true,
+  });
+  return data;
 };
 
 export const addReview = async (carId, reviewData) => {

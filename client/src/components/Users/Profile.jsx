@@ -26,6 +26,10 @@ const Profile = () => {
     }
   }, [myCars]);
 
+  if (!myCars || myCars.length === 0) {
+    return <p>No Cars Found</p>;
+  }
+
   return (
     <div className="profile">
       <div className="profile__info">
@@ -46,6 +50,7 @@ const Profile = () => {
             country={countries[`${myCar.lat},${myCar.lng}`]}
           />
         ))}
+        {!myCars || (myCars.length === 0 && <h1>No Cars Found</h1>)}
       </div>
     </div>
   );

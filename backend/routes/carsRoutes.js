@@ -21,6 +21,7 @@ router
   .route("/")
   .get(getAllCars)
   .post(protect, upload.single("image"), compressImage, createCar);
+  
 router
   .route("/:id")
   .get(getCar)

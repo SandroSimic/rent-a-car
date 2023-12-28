@@ -35,6 +35,13 @@
       align-items: center;
       gap: 3rem;
       flex-wrap: wrap;
+
+      &--error {
+        width: 100%;
+        text-align: center;
+        font-size: var(--font-size-largest);
+        color: red;
+      }
     }
   }
 }

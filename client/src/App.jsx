@@ -13,6 +13,8 @@ import MyProfileScreen from "./screens/MyProfileScreen";
 import UsersProfile from "./components/Users/UsersProfile";
 import { AdminRoute } from "./components/AdminRoutes";
 import { UserRoutes } from "./components/UserRoutes";
+import AdminScreen from "./screens/AdminScreen";
+import EditUserForm from "./components/Users/EditUserForm";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +39,14 @@ function App() {
             <Route
               path="/car/:carId"
               element={<UserRoutes element={<CarDetailsScreen />} />}
+            />
+            <Route
+              path="/admin"
+              element={<AdminRoute element={<AdminScreen />} />}
+            />
+            <Route
+              path="/users/:userId/edit"
+              element={<AdminRoute element={<EditUserForm />} />}
             />
             <Route
               path="/car/edit/:carId"
