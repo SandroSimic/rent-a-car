@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:5173", "https://renlty.onrender.com"],
+    origin: ["http://localhost:5173", "https://rently-h8vt.onrender.com"],
   })
 );
 app.use(express.json());
