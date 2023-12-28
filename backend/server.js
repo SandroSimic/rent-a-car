@@ -7,11 +7,13 @@ import connectDB from "./config/db.js";
 import AppError from "./utils/appError.js";
 import globalErrorHandler from "./controllers/errorController.js";
 import cors from "cors";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import path from 'path'
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 connectDB();
 
@@ -33,18 +35,15 @@ app.use("/api/users", usersRouter);
 
 
 
-app.all("*", (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
-});
 
-const currentFilePath = new URL(import.meta.url).pathname;
-const currentDirPath = path.dirname(currentFilePath);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(currentDirPath, '/client/dist')))
+  app.use(express.static(path.join(__dirname, '../client/dist')))
 
   app.get('*', (req,res) => {
-    res.sendFile(path.resolve(currentDirPath, 'client', 'dist', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'))
   })
 }
 else {
@@ -52,6 +51,10 @@ else {
     res.send('Api is running....')
   })
 }
+
+app.all("*", (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
+});
 
 app.use(globalErrorHandler);
 
