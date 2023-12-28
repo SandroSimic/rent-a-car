@@ -19,7 +19,7 @@ const getCurrentUserData = catchAsync(async (req, res, next) => {
 
   const user = await User.findById(userId);
 
-  if (!user) {
+  if (!user || user === undefined) {
     return next(new AppError("User not found", 404));
   }
 
@@ -31,7 +31,6 @@ const getCurrentUserData = catchAsync(async (req, res, next) => {
     userImage: user.userImage,
     role: user.role,
   });
-  return next(new AppError("Error fetching user data", 500));
 });
 
 const getUserById = catchAsync(async (req, res, next) => {

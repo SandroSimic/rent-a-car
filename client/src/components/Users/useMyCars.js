@@ -7,7 +7,7 @@ export function useMyCars() {
     data: myCars,
     error,
   } = useQuery({
-    queryKey: "cars",
+    queryKey: ["cars"],
     queryFn: getMe,
   });
 

@@ -8,7 +8,7 @@ export function useGetAllUsers() {
     error,
     refetch,
   } = useQuery({
-    queryKey: "users",
+    queryKey: ["users"],
     queryFn: getAllUsers,
   });
 

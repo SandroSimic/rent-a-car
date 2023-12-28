@@ -8,7 +8,7 @@ export function useRegister() {
 
   const { mutate: registerQuery, isLoading } = useMutation({
     mutationFn: registerUser,
-    onSuccess: (user) => {
+    onSuccess: () => {
       toast.success("Account successfully created");
       navigate("/", { replace: true });
     },

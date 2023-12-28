@@ -4,13 +4,13 @@ import { FaUser, FaBars } from "react-icons/fa";
 import { useState } from "react";
 import ResponsiveNavbar from "./ResponsiveNavbar";
 import { useLogout } from "./Users/useLogout";
-import { useUser } from "./Users/useUser";
 
-const Navbar = () => {
+const Navbar = ({user}) => {
   const [isOpenNavbar, setIsOpenNavbar] = useState(false);
   const [toggleDropdown, setToggleDropdown] = useState(false);
-  const { user } = useUser();
   const { logout, isLoading } = useLogout();
+
+
 
   function onToggleDropdown() {
     setToggleDropdown((prevToggle) => !prevToggle);

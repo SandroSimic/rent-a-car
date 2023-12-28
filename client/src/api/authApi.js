@@ -26,6 +26,7 @@ export const getCurrentUser = async () => {
     withCredentials: true,
   });
 
+
   return data;
 };
 
