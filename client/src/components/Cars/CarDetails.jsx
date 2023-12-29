@@ -139,7 +139,7 @@ const CarDetails = () => {
           </div>
         </div>
       </div>
-      <h1>Reviews</h1>
+      <h1 className="reviews">Reviews</h1>
       {user?._id === car.owner._id ? "" : <AddReview carId={car._id} />}
       {car.reviews.map((review) => (
         <Review

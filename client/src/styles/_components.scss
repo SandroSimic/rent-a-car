@@ -154,7 +154,6 @@
   color: #333333;
 
 
-
   &:hover {
     transform: scale(1.01);
     cursor: pointer;
@@ -197,6 +196,7 @@
   &__review {
     display: flex;
     align-items: center;
+
     gap: 1rem;
 
     &__stars {
@@ -360,4 +360,9 @@
   font-size: var(--font-size-largest);
   font-weight: bold;
   color: var(--color-primary);
+}
+
+.stars {
+  display: flex;
+  align-items: center;
 }

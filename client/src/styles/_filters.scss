@@ -5,6 +5,11 @@
   gap: 3rem;
   padding: 0rem 1rem;
   border-right: 1px solid var(--color-grey);
+  font-size: 1.6rem;
+
+  & select {
+    border: 1px solid black;
+  }
 
   &__applyBtn {
     display: flex;
@@ -50,6 +55,7 @@
         font-size: var(--font-size-large);
         font-weight: bold;
 
+
         &:focus {
           outline: 2px solid var(--color-primary);
         }
@@ -73,7 +79,6 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-
     
     @media screen and (max-width: $bp-small) {
       align-items: center;
@@ -84,6 +89,10 @@
     color: #ccc;
     cursor: pointer;
     transition: color 0.2s;
+  }
+
+  .filterStars{
+    display: flex;
   }
 
   input[type="radio"] {

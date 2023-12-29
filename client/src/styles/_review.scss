@@ -47,8 +47,10 @@
     padding: 1rem;
     width: 100%;
     border-radius: 1rem;
-    border: 1px solid var(--color-secondary);
+    height: 6rem;
+    border: 5px solid var(--color-secondary);
     outline: none;
+    font-size: var(--font-size-medium);
 
     &:focus {
       border: 2px solid var(--color-primary);

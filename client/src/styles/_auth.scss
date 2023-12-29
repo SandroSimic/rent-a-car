@@ -70,6 +70,7 @@
 
   & h1 {
     color: var(--color-primary);
+    font-size: var(--font-size-largest);
   }
 
   &__input {
@@ -89,6 +90,7 @@
       border: 1px solid black;
       padding: 0 1rem;
       border-radius: 5px;
+      color: #323232;
       &:focus {
         border: 2px solid var(--color-primary);
       }
